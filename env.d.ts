@@ -1,8 +1,5 @@
 declare namespace NodeJS {
   interface ProcessEnv {
-    // Server Configurations
-    DB_PATH: string;
-
     // Site Configurations
     NEXT_PUBLIC_SITE_TITLE: string;
     NEXT_PUBLIC_SITE_DESCRIPTION: string;
