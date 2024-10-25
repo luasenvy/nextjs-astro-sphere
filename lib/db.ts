@@ -9,7 +9,7 @@ import { author, logo, site } from "@/config";
 
 const currentDirname = dirname(import.meta.url).substring("file://".length);
 
-const storage = join(currentDirname, "../app/posts");
+const storage = join(currentDirname, "../public/posts");
 
 export type PostType = "posts" | "projects" | "careers" | "legals";
 
