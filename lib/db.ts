@@ -1,5 +1,5 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "fs";
-import { dirname, join } from "path";
+import { join } from "path";
 
 import { Feed } from "feed";
 
@@ -27,9 +27,7 @@ interface DatabaseSchema {
   legals: Array<PostItem>;
 }
 
-const currentDirname = dirname(import.meta.url).substring("file://".length);
-
-const storage = join(currentDirname, "../public/posts");
+const storage = join(process.cwd(), "./public/posts");
 const dbfilepath = join(storage, "db.json");
 
 // nextjs + lowdb + fs is have permission issue
