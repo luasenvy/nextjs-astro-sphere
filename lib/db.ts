@@ -1,7 +1,11 @@
 import { readFileSync, readdirSync, statSync } from "fs";
 import { dirname, join } from "path";
 
+import { Feed } from "feed";
+
 import { JSONFilePreset } from "lowdb/node";
+
+import { author, logo, site } from "@/config";
 
 const currentDirname = dirname(import.meta.url).substring("file://".length);
 
@@ -30,6 +34,29 @@ interface DatabaseSchema {
 const filenames = readdirSync(storage, { recursive: true });
 
 const dbfilepath = join(process.env.DB_PATH ?? ".", ".db.json");
+
+export const feed = new Feed({
+  title: site.name,
+  description: site.description,
+  id: site.baseurl,
+  link: site.baseurl,
+  language: "en", // optional, used only in RSS 2.0, possible values: http://www.w3.org/TR/REC-html40/struct/dirlang.html#langcodes
+  image: logo.light,
+  favicon: `${site.baseurl}/favicon.ico`,
+  copyright: `2024 ${author.name} All rights reserved`,
+  updated: new Date(),
+  generator: "Next.js",
+  feedLinks: {
+    json: `${site.baseurl}/json`,
+    atom: `${site.baseurl}/atom`,
+    rss2: `${site.baseurl}/rss2`,
+  },
+  author: {
+    name: author.name,
+    email: author.email,
+    link: author.link,
+  },
+});
 
 const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
   posts: [],
@@ -60,8 +87,9 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
 
       const table = db.data[series as keyof DatabaseSchema];
 
-      if (table) entryTo(table, pathname.join("/"), created, updated);
-      else entryTo(db.data.posts, strname, created, updated);
+      if (table)
+        entryTo(table, pathname.join("/"), created, updated, series as keyof DatabaseSchema);
+      else entryTo(db.data.posts, strname, created, updated, "posts");
     }
 
     db.write();
@@ -69,10 +97,33 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
     return db;
   });
 
-function entryTo(db: Array<PostItem>, strname: string, created: number, updated: number): void {
+function entryTo(
+  db: Array<PostItem>,
+  strname: string,
+  created: number,
+  updated: number,
+  type: PostType
+): void {
   const slug = strname.replace(/\..+$/, "");
 
   const [series, ...pathname] = strname.split("/");
+
+  feed.addItem({
+    id: slug,
+    title: slug,
+    link: `${site.baseurl}/${type}/${slug}`,
+    // TODO: add metadata
+    // description: metadata.description,
+    // content: metadata.content,
+    date: new Date(created),
+    author: [
+      {
+        name: author.name,
+        email: author.email,
+        link: author.link,
+      },
+    ],
+  });
 
   if (db.some(({ slug: s }) => s === slug)) return;
 

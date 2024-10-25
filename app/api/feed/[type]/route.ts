@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 
-import { feed } from "@/data/posts";
+import { feed } from "@/lib/db";
 
 export async function GET(
   req: NextRequest,
@@ -13,6 +13,7 @@ export async function GET(
   }
 ) {
   const { type } = await params;
+
   if (["rss", "rss2"].includes(type)) {
     return new Response(feed.rss2(), {
       headers: new Headers({ "Content-Type": "application/xml" }),
