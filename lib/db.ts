@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync, statSync } from "fs";
+import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 
 import { Feed } from "feed";
@@ -6,10 +6,6 @@ import { Feed } from "feed";
 import { JSONFilePreset } from "lowdb/node";
 
 import { author, logo, site } from "@/config";
-
-const currentDirname = dirname(import.meta.url).substring("file://".length);
-
-const storage = join(currentDirname, "../public/posts");
 
 export type PostType = "posts" | "projects" | "careers" | "legals";
 
@@ -31,9 +27,15 @@ interface DatabaseSchema {
   legals: Array<PostItem>;
 }
 
-const filenames = readdirSync(storage, { recursive: true });
+const currentDirname = dirname(import.meta.url).substring("file://".length);
 
-const dbfilepath = join(process.env.DB_PATH ?? ".", ".db.json");
+const storage = join(currentDirname, "../public/posts");
+const dbfilepath = join(storage, "db.json");
+
+// nextjs + lowdb + fs is have permission issue
+if (!existsSync(dbfilepath)) writeFileSync(dbfilepath, "{}", { encoding: "utf8", mode: 0o755 });
+
+const filenames = readdirSync(storage, { recursive: true });
 
 export const feed = new Feed({
   title: site.name,
