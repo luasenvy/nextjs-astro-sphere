@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 
 import ArrowCard from "@/components/ArrowCard";
 import Link from "@/components/ViewTransitionLink";
+import type { PostItem } from "@/lib/db";
 
-import posts from "@/data/posts";
+export interface RecentPostsProps {
+  posts: Array<PostItem>;
+}
 
-export default function RecentPosts() {
+export default function RecentPosts({ posts }: RecentPostsProps) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -19,7 +22,7 @@ export default function RecentPosts() {
         <div className="flex justify-between">
           <p className="font-semibold text-black dark:text-white">Recent posts</p>
           <Link
-            href="/blog"
+            href="/posts"
             className="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend"
           >
             <span className="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
@@ -44,7 +47,7 @@ export default function RecentPosts() {
                 block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
               }}
             >
-              <ArrowCard entry={post} />
+              <ArrowCard post={post} type="posts" />
             </motion.li>
           ))}
         </motion.ul>

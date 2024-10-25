@@ -6,27 +6,27 @@ import { author, site } from "@/config";
 import db, { getSeries } from "@/lib/db";
 
 export const metadata = {
-  title: `${site.name} - ${author.name}'s Project`,
-  description: `${author.name}'s Project List.`,
+  title: `${site.name} - ${author.name}'s Blog`,
+  description: `${author.name}'s Blog Posts.`,
 };
 
-interface ProjectPageParams {
+interface BlogPageParams {
   searchParams: Promise<{ page?: string }>;
 }
 
-export default async function ProjectsPage({ searchParams }: ProjectPageParams) {
+export default async function BlogPage({ searchParams }: BlogPageParams) {
   const page = Number((await searchParams).page ?? "1");
 
-  const projects = (await db).data.projects;
+  const posts = (await db).data.posts;
 
-  const series = getSeries(projects);
+  const series = getSeries(posts);
 
   return (
     <>
-      <TopLayout className="page-heading">Projects</TopLayout>
+      <TopLayout className="page-heading">Blog</TopLayout>
 
       <BottomLayout>
-        <PostList posts={projects} series={series} page={page} type="projects" />
+        <PostList posts={posts} series={series} page={page} type="posts" />
       </BottomLayout>
     </>
   );
