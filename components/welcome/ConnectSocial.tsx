@@ -6,9 +6,11 @@ import { Fragment } from "react";
 
 import Link from "@/components/ViewTransitionLink";
 
-import { social } from "@/config";
+export interface ConnectSocialProps {
+  social: Array<{ name: string; href: string; text: string }>;
+}
 
-export default function ConnectSocial() {
+export default function ConnectSocial({ social }: ConnectSocialProps) {
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}

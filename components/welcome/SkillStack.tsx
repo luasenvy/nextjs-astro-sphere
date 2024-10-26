@@ -4,9 +4,11 @@ import { motion } from "framer-motion";
 
 import StackCard from "./StackCard";
 
-import { stack } from "@/config";
+export interface SkillStackProps {
+  stack: Array<{ text: string; href: string }>;
+}
 
-export default function SkillStack() {
+export default function SkillStack({ stack }: SkillStackProps) {
   return (
     <section>
       <div className="space-y-4">
@@ -21,7 +23,7 @@ export default function SkillStack() {
           viewport={{ once: true, amount: "all" }}
           className="flex flex-wrap items-center gap-2 mt-5"
         >
-          {stack?.map(({ text, href }, i) => (
+          {stack.map(({ text, href }, i) => (
             <motion.span
               key={`stack-card-${i}`}
               variants={{

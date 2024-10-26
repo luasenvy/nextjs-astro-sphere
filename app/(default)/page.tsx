@@ -9,7 +9,7 @@ import Stars from "@/components/welcome/Stars";
 
 import WelcomeHero from "@/components/welcome/WelcomeHero";
 import WelcomeTypography from "@/components/welcome/WelcomeTypography";
-import { site } from "@/config";
+import { site, social, stack, welcome } from "@/config";
 
 import db from "@/lib/db";
 
@@ -33,20 +33,20 @@ export default async function HomePage() {
       <section className="relative h-screen w-full">
         <Planet />
 
-        <WelcomeHero />
+        <WelcomeHero {...welcome} />
       </section>
 
       <div className="relative bg-white dark:bg-black">
         <div className="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
-          <WelcomeTypography />
+          <WelcomeTypography text={welcome.introduce} />
 
           <RecentPosts posts={posts} />
 
-          <SkillStack />
+          <SkillStack stack={stack} />
 
           <RecentProjects projects={projects} />
 
-          <ConnectSocial />
+          <ConnectSocial social={social} />
         </div>
       </div>
     </>

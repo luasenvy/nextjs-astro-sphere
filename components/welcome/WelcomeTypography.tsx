@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 
-import { welcome } from "@/config";
+export interface WelcomeTypographyProps {
+  text: string;
+}
 
-export default function WelcomeTypography() {
+export default function WelcomeTypography({ text }: WelcomeTypographyProps) {
   return (
     <section>
       <motion.article
@@ -16,7 +18,7 @@ export default function WelcomeTypography() {
         whileInView="block"
         viewport={{ once: true, amount: "some" }}
       >
-        {welcome.introduce?.split("\n").map((line, i) => (
+        {text.split("\n").map((line, i) => (
           <motion.p
             key={`intro-${i}`}
             variants={{

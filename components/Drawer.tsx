@@ -10,9 +10,9 @@ import classnames from "classnames";
 import { usePathname } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
-import Link from "@/components/ViewTransitionLink";
+import { nav } from "./Header";
 
-import { nav, site } from "@/config";
+import Link from "@/components/ViewTransitionLink";
 
 export interface DrawerProps {
   open?: boolean;
@@ -64,7 +64,7 @@ export default function Drawer({
       <div className="flex gap-1 mt-5">
         <Link
           href="/search"
-          aria-label={`Search blog posts and projects on ${site.name}`}
+          aria-label={`Search blog posts and projects on this site`}
           className={twMerge(
             classnames(
               "size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out",
@@ -82,7 +82,7 @@ export default function Drawer({
         <Link
           href="/api/feed/rss2"
           target="_blank"
-          aria-label={`Rss feed for ${site.name}`}
+          aria-label="rss feed"
           className="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
           onClick={handleToggleDrawer}
         >

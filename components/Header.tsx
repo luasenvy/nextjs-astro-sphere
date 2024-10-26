@@ -18,7 +18,7 @@ import { twMerge } from "tailwind-merge";
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
-import { logo, nav, site } from "@/config";
+import { logo, site } from "@/config";
 
 import styles from "@/styles/header.module.css";
 
@@ -28,6 +28,25 @@ export interface HeaderProps {
   onToggleDrawer?: () => void;
   onToggleTheme?: () => void;
 }
+
+export const nav = [
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "Careers",
+    href: "/careers",
+  },
+  {
+    name: "Blog",
+    href: "/posts",
+  },
+  {
+    name: "Projects",
+    href: "/projects",
+  },
+];
 
 export default function Header({
   dark,
