@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 
 import Link from "@/components/ViewTransitionLink";
-import { welcome } from "@/config";
 
 export interface WelcomeHeroProps {
   caption: string;
