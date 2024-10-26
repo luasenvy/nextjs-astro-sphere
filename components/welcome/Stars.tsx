@@ -8,7 +8,7 @@ function getRandom(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function generateStars(ilen: number, theme: "light" | "dark") {
+function generateStars(ilen: number, theme: string) {
   const color = theme === "dark" ? "#fff" : "#000";
   let value = `${getRandom(2560)}px ${getRandom(2560)}px ${color}`;
   for (let i = 2; i <= ilen; i++) value += `, ${getRandom(2560)}px ${getRandom(2560)}px ${color}`;
@@ -22,7 +22,7 @@ export default function Stars() {
   const stars3Ref = useRef<HTMLDivElement>(null);
 
   const stars = useCallback(
-    (theme: ReturnType<typeof getTheme>) => {
+    (theme: string) => {
       const starsSmall = generateStars(1000, theme);
       const starsMedium = generateStars(500, theme);
       const starsLarge = generateStars(250, theme);
@@ -64,25 +64,16 @@ export default function Stars() {
   useLayoutEffect(() => {
     const theme = getTheme();
 
-    stars(theme);
+    stars(theme ?? "dark");
   }, [stars]);
 
   useLayoutEffect(() => {
-    const observer = new MutationObserver(() => {
-      const theme = getTheme();
+    const handleStorage = (e: StorageEvent) => stars(e.newValue ?? "dark");
 
-      stars(theme);
-    });
-
-    observer.observe(document.documentElement, {
-      childList: false,
-      subtree: false,
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    window.addEventListener("storage", handleStorage);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("storage", handleStorage);
     };
   }, []);
 

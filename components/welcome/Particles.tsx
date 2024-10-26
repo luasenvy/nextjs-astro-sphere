@@ -8,7 +8,7 @@ function getRandom(max: number) {
   return Math.floor(Math.random() * max);
 }
 
-function generateParticles(ilen: number, theme: "light" | "dark") {
+function generateParticles(ilen: number, theme: string) {
   const color = theme === "dark" ? "#fff" : "#000";
   let value = `${getRandom(2560)}px ${getRandom(2560)}px ${color}`;
   for (let i = 2; i <= ilen; i++) value += `, ${getRandom(2560)}px ${getRandom(2560)}px ${color}`;
@@ -21,7 +21,7 @@ export default function Particles() {
   const particles3Ref = useRef<HTMLDivElement>(null);
 
   const particles = useCallback(
-    (theme: ReturnType<typeof getTheme>) => {
+    (theme: string) => {
       const particlesSmall = generateParticles(1000, theme);
       const particlesMedium = generateParticles(500, theme);
       const particlesLarge = generateParticles(250, theme);
@@ -64,11 +64,11 @@ export default function Particles() {
   );
 
   useLayoutEffect(() => {
-    particles(getTheme());
+    particles(getTheme() ?? "dark");
   }, [particles]);
 
   useLayoutEffect(() => {
-    const handleStorage = (e: StorageEvent) => particles(e.newValue);
+    const handleStorage = (e: StorageEvent) => particles(e.newValue ?? "dark");
 
     window.addEventListener("storage", handleStorage);
 
