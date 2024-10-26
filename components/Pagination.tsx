@@ -4,17 +4,17 @@ import classnames from "classnames";
 import { motion } from "framer-motion";
 
 import Link from "@/components/ViewTransitionLink";
-import { pagination } from "@/config";
 
 export interface PaginationProps {
   total: number;
   page: number;
+  size: number;
 }
 
 const MotionLink = motion.create(Link);
 
-export default function Pagination({ total, page }: PaginationProps) {
-  const pages = Math.ceil(total / pagination.pageSize);
+export default function Pagination({ total, page, size }: PaginationProps) {
+  const pages = Math.ceil(total / size);
 
   return (
     <motion.nav
