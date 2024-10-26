@@ -9,6 +9,8 @@ import classnames from "classnames";
 import { useRouter } from "next/navigation";
 
 import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
+import ArrowDown from "@/components/icons/ArrowDown";
+
 import type { PostItem, PostType } from "@/lib/db";
 
 export interface ArticleTopLayoutProps {
@@ -38,29 +40,7 @@ export default function ArticleTopLayout({ curr, type }: ArticleTopLayoutProps) 
           )}
           onClick={() => withTransitionTo(router, `/${type}`)}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white"
-          >
-            <line
-              x1="19"
-              y1="12"
-              x2="5"
-              y2="12"
-              className="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out"
-            />
-            <polyline
-              points="12 19 5 12 12 5"
-              className="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out"
-            />
-          </svg>
+          <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white" />
           <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
             Back to {type}
           </div>

@@ -8,32 +8,41 @@ import Search from "@mui/icons-material/Search";
 import classnames from "classnames";
 
 import { usePathname } from "next/navigation";
+import { useLayoutEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import { nav } from "./Header";
 
 import Link from "@/components/ViewTransitionLink";
+import { getDrawer, toggleDrawer } from "@/lib/drawer";
+import { toggleTheme } from "@/lib/theme";
 
-export interface DrawerProps {
-  open?: boolean;
-  onToggleDrawer?: () => void;
-  onToggleTheme?: () => void;
-}
-
-export default function Drawer({
-  open,
-  onToggleDrawer: handleToggleDrawer,
-  onToggleTheme: handleToggleTheme,
-}: DrawerProps) {
+export default function Drawer() {
   const pathname = usePathname();
   const subpath = pathname.match(/[^/]+/g);
+
+  const [showDrawer, setShowDrawer] = useState<boolean>(false);
+
+  useLayoutEffect(() => {
+    setShowDrawer(getDrawer() === "true");
+
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "drawer") setShowDrawer(e.newValue === "true");
+    };
+
+    window.addEventListener("storage", handleStorage);
+
+    return () => {
+      window.removeEventListener("storage", handleStorage);
+    };
+  }, []);
 
   return (
     <div
       className={classnames(
         "fixed inset-0 h-0 z-40 overflow-hidden flex flex-col items-center justify-center md:hidden bg-neutral-100 dark:bg-neutral-900 transition-[height] duration-300 ease-in-out",
         {
-          "h-full": open,
+          "h-full": showDrawer,
         }
       )}
     >
@@ -44,17 +53,14 @@ export default function Drawer({
             href={href}
             className={twMerge(
               classnames(
-                "flex items-center justify-center px-3 py-1 rounded-full",
-                "text-current hover:text-black dark:hover:text-white",
-                "hover:bg-black/5 dark:hover:bg-white/20",
-                "transition-colors duration-300 ease-in-out",
+                "flex items-center justify-center px-3 py-1 rounded-full text-current hover:text-black dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/20 transition-colors duration-300 ease-in-out",
                 {
                   "pointer-events-none bg-black dark:bg-white text-white dark:text-black":
                     pathname === href || "/" + subpath?.[0] === href,
                 }
               )
             )}
-            onClick={handleToggleDrawer}
+            onClick={() => toggleTheme()}
           >
             {name}
           </Link>
@@ -74,7 +80,7 @@ export default function Drawer({
               }
             )
           )}
-          onClick={handleToggleDrawer}
+          onClick={() => toggleDrawer()}
         >
           <Search className="block size-full" />
         </Link>
@@ -84,7 +90,7 @@ export default function Drawer({
           target="_blank"
           aria-label="rss feed"
           className="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
-          onClick={handleToggleDrawer}
+          onClick={() => toggleDrawer()}
         >
           <RssFeed className="block size-full" />
         </Link>
@@ -93,7 +99,7 @@ export default function Drawer({
           id="drawer-theme-button"
           aria-label={`Toggle light and dark theme`}
           className="size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
-          onClick={handleToggleTheme}
+          onClick={() => toggleTheme()}
         >
           <LightMode className="block dark:hidden size-full" />
           <DarkMode className="hidden dark:block size-full" />

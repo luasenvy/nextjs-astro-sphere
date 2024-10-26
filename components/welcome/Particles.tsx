@@ -64,27 +64,16 @@ export default function Particles() {
   );
 
   useLayoutEffect(() => {
-    const theme = getTheme();
-
-    particles(theme);
+    particles(getTheme());
   }, [particles]);
 
   useLayoutEffect(() => {
-    const observer = new MutationObserver(() => {
-      const theme = getTheme();
+    const handleStorage = (e: StorageEvent) => particles(e.newValue);
 
-      particles(theme);
-    });
-
-    observer.observe(document.documentElement, {
-      childList: false,
-      subtree: false,
-      attributes: true,
-      attributeFilter: ["class"],
-    });
+    window.addEventListener("storage", handleStorage);
 
     return () => {
-      observer.disconnect();
+      window.removeEventListener("storage", handleStorage);
     };
   }, []);
 

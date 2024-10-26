@@ -1,12 +1,9 @@
-"use client";
-
 import localFont from "next/font/local";
-import { useLayoutEffect, useState } from "react";
 
 import Drawer from "@/components/Drawer";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { getTheme, setTheme } from "@/lib/theme";
+import { author, logo, site, social } from "@/config";
 
 const atkinson = localFont({
   src: [
@@ -23,38 +20,13 @@ const atkinson = localFont({
   weight: "45 920",
 });
 
-export default function DefaultLayout({ children }: React.PropsWithChildren) {
-  const [open, setOpen] = useState<boolean>(false);
-  const [isDark, setIsDark] = useState<boolean>(false);
-
-  useLayoutEffect(() => {
-    const isDark = getTheme() === "dark";
-    document.documentElement.classList.toggle("dark", isDark);
-    setIsDark(isDark);
-  }, []);
-
-  const handleToggleDrawer = () => setOpen((prev) => !prev);
-  const handleToggleTheme = () => {
-    const toggle = !isDark;
-
-    document.documentElement.classList.toggle("dark", toggle);
-
-    setTheme(toggle ? "dark" : "light");
-
-    setIsDark(toggle);
-  };
-
+export default async function DefaultLayout({ children }: React.PropsWithChildren) {
   return (
-    <body className={`${atkinson.className}`}>
-      <Header
-        open={open}
-        onToggleDrawer={handleToggleDrawer}
-        dark={isDark}
-        onToggleTheme={handleToggleTheme}
-      />
-      <Drawer open={open} onToggleDrawer={handleToggleDrawer} onToggleTheme={handleToggleTheme} />
+    <body className={atkinson.className}>
+      <Header site={site} logo={logo} />
+      <Drawer />
       <main>{children}</main>
-      <Footer />
+      <Footer site={site} author={author} social={social} logo={logo} />
     </body>
   );
 }

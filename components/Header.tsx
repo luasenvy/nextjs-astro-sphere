@@ -9,6 +9,8 @@ import Search from "@mui/icons-material/Search";
 
 import classnames from "classnames";
 
+import debounce from "lodash/debounce";
+
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
@@ -18,16 +20,12 @@ import { twMerge } from "tailwind-merge";
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
 
-import { logo, site } from "@/config";
+import type { LogoType, SiteType } from "@/config";
+
+import { getDrawer, toggleDrawer } from "@/lib/drawer";
+import { getTheme, toggleTheme } from "@/lib/theme";
 
 import styles from "@/styles/header.module.css";
-
-export interface HeaderProps {
-  dark?: boolean;
-  open?: boolean;
-  onToggleDrawer?: () => void;
-  onToggleTheme?: () => void;
-}
 
 export const nav = [
   {
@@ -48,29 +46,47 @@ export const nav = [
   },
 ];
 
-export default function Header({
-  dark,
-  open,
-  onToggleDrawer: handleToggleDrawer,
-  onToggleTheme: handleToggleTheme,
-}: HeaderProps) {
+export interface HeaderProps {
+  logo: LogoType;
+  site: SiteType;
+}
+
+export default function Header({ site, logo }: HeaderProps) {
   const pathname = usePathname();
 
   const headerRef = useRef<HTMLElement>(null);
 
   const [scrolled, setScrolled] = useState<boolean>(false);
+  const [dark, setDark] = useState<boolean>(false);
+  const [showDrawer, setShowDrawer] = useState<boolean>(false);
 
   const subpath = pathname.match(/[^/]+/g);
 
   const isMatched = (href: string) => pathname === href || "/" + subpath?.[0] === href;
 
+  const setDocumentDark = (isDark: boolean) => {
+    document.documentElement.classList.toggle("dark", isDark);
+    setDark(isDark);
+  };
+
   useLayoutEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 0);
+    setDocumentDark(getTheme() === "dark");
+    setShowDrawer(getDrawer() === "true");
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === "theme") setDocumentDark(e.newValue === "dark");
+      else if (e.key === "drawer") setShowDrawer(e.newValue === "true");
+    };
+
+    window.addEventListener("storage", handleStorage);
+
+    const handleScroll = debounce(() => setScrolled(window.scrollY > 0), 100);
 
     document.addEventListener("scroll", handleScroll);
     handleScroll();
+
     return () => {
       document.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("storage", handleStorage);
     };
   }, [headerRef, setScrolled]);
 
@@ -121,9 +137,7 @@ export default function Header({
                   href={href}
                   className={twMerge(
                     classnames(
-                      "h-8 rounded-full px-3 text-current",
-                      "flex items-center justify-center",
-                      "transition-colors duration-300 ease-in-out",
+                      "h-8 rounded-full px-3 text-current flex items-center justify-center transition-colors duration-300 ease-in-out",
                       {
                         "bg-black dark:bg-white text-white dark:text-black": isMatched(href),
                         "hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white":
@@ -141,18 +155,14 @@ export default function Header({
           <div className="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
             <Link
               href="/search"
-              aria-label={`Search blog posts and projects on ${site.name}`}
+              aria-label={`Search blog posts and projects on this site`}
               className={twMerge(
                 classnames(
-                  "hidden md:flex",
-                  "size-9 rounded-full p-2 items-center justify-center",
-                  "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-                  "stroke-current hover:stroke-black hover:dark:stroke-white",
-                  "border border-black/10 dark:border-white/25",
-                  "transition-colors duration-300 ease-in-out",
-                  pathname === "/search" || "/" + subpath?.[0] === "/search"
-                    ? "pointer-events-none bg-black dark:bg-white text-white dark:text-black"
-                    : ""
+                  "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out",
+                  {
+                    "pointer-events-none bg-black dark:bg-white text-white dark:text-black":
+                      pathname === "/search" || "/" + subpath?.[0] === "/search",
+                  }
                 )
               )}
             >
@@ -165,12 +175,7 @@ export default function Header({
               aria-label={`Rss feed for ${site.name}`}
               className={twMerge(
                 classnames(
-                  "hidden md:flex",
-                  "size-9 rounded-full p-2 items-center justify-center",
-                  "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-                  "stroke-current hover:stroke-black hover:dark:stroke-white",
-                  "border border-black/10 dark:border-white/25",
-                  "transition-colors duration-300 ease-in-out"
+                  "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
                 )
               )}
             >
@@ -182,15 +187,10 @@ export default function Header({
               aria-label="Toggle light and dark theme"
               className={twMerge(
                 classnames(
-                  "hidden md:flex",
-                  "size-9 rounded-full p-2 items-center justify-center",
-                  "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-                  "stroke-current hover:stroke-black hover:dark:stroke-white",
-                  "border border-black/10 dark:border-white/25",
-                  "transition-colors duration-300 ease-in-out"
+                  "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
                 )
               )}
-              onClick={handleToggleTheme}
+              onClick={() => toggleTheme()}
             >
               <LightMode className="size-full block dark:hidden" />
               <DarkMode className="size-full hidden dark:block" />
@@ -200,24 +200,19 @@ export default function Header({
               aria-label="Toggle drawer open and closed"
               className={twMerge(
                 classnames(
-                  "flex md:hidden",
-                  "size-9 rounded-full p-2 items-center justify-center",
-                  "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-                  "stroke-current hover:stroke-black hover:dark:stroke-white",
-                  "border border-black/10 dark:border-white/25",
-                  "transition-colors duration-300 ease-in-out"
+                  "flex md:hidden size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
                 )
               )}
-              onClick={handleToggleDrawer}
+              onClick={() => toggleDrawer()}
             >
               <Menu
                 id="drawer-open"
-                className={classnames("size-full", { block: !open, hidden: open })}
+                className={classnames("size-full", { block: !showDrawer, hidden: showDrawer })}
               />
 
               <Close
                 id="drawer-close"
-                className={classnames("size-full", { block: open, hidden: !open })}
+                className={classnames("size-full", { block: showDrawer, hidden: !showDrawer })}
               />
             </button>
           </div>

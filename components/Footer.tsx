@@ -5,11 +5,18 @@ import { createElement } from "react";
 
 import Container from "@/components/Container";
 import Link from "@/components/ViewTransitionLink";
+import ArrowDown from "@/components/icons/ArrowDown";
 
-import { author, logo } from "@/config";
-import { site, social } from "@/config";
+import type { AuthorType, LogoType, SiteType, SocialType } from "@/config";
 
-export default function Footer() {
+export interface FooterProps {
+  site: SiteType;
+  social: SocialType;
+  author: AuthorType;
+  logo: LogoType;
+}
+
+export default function Footer({ site, author, social, logo }: FooterProps) {
   return (
     <footer className="relative bg-white dark:bg-black">
       <section className="py-5">
@@ -21,29 +28,8 @@ export default function Footer() {
               className="group flex w-fit p-1.5 gap-1.5 text-sm items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-90"
-              >
-                <line
-                  x1="19"
-                  y1="12"
-                  x2="5"
-                  y2="12"
-                  className="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out"
-                />
-                <polyline
-                  points="12 19 5 12 12 5"
-                  className="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out"
-                />
-              </svg>
+              <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-90" />
+
               <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
                 Back to top
               </div>
@@ -121,7 +107,7 @@ export default function Footer() {
                     key={`social-${i}`}
                     href={href}
                     target="_blank"
-                    aria-label={`${site.name} on ${name}`}
+                    aria-label={`connect ${name}`}
                     className="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20  blend"
                   >
                     {icon &&

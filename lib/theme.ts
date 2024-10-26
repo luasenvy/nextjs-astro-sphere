@@ -6,5 +6,10 @@ export function getTheme() {
 }
 
 export function setTheme(theme: "light" | "dark") {
-  localStorage.theme = theme;
+  localStorage.setItem("theme", theme);
+  window.dispatchEvent(new StorageEvent("storage", { key: "theme", newValue: theme }));
+}
+
+export function toggleTheme() {
+  setTheme(localStorage.theme === "dark" ? "light" : "dark");
 }

@@ -9,11 +9,15 @@ export const logo = {
   dark: process.env.LOGO_DARK,
 };
 
+export type LogoType = typeof logo;
+
 export const site = {
   name: process.env.SITE_TITLE,
   description: process.env.SITE_DESCRIPTION,
   baseurl: process.env.SITE_BASEURL,
 };
+
+export type SiteType = typeof site;
 
 export const welcome = {
   caption: process.env.WELCOME_CAPTION,
@@ -24,12 +28,16 @@ export const welcome = {
   introduce: process.env.WELCOME_INTRODUCE,
 };
 
+export type WelcomeType = typeof welcome;
+
 export const author = {
   name: process.env.AUTHOR_NAME,
   email: process.env.AUTHOR_EMAIL,
   link: process.env.AUTHOR_LINK,
   avatar: process.env.AUTHOR_AVATAR,
 };
+
+export type AuthorType = typeof author;
 
 interface Social {
   name: string;
@@ -39,6 +47,8 @@ interface Social {
 }
 
 export const social: Array<Social> = [];
+
+export type SocialType = typeof social;
 
 if (process.env.AUTHOR_EMAIL?.length) {
   social.push({
