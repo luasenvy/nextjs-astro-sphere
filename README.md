@@ -25,17 +25,11 @@
 ### with docker
 
 1. write your own posts in `./posts`
-  - when server is booting always reload all of `.mdx` file
 2. set your own server environment to `.env.production`
 3. execute command `NODE_ENV=production; npm run build`
 4. make docker `docker build -t "$IMAGE_NAME:$IMAGE_TAG" .`
 5. run docker `docker run --env-file .env.production $IMAGE_NAME:$IMAGE_TAG`
   - or set docker environment to `docker-compose.yml` and run `docker compose up -d`
-
-#### options
-
-- volume: `/app/posts`
-- ports: `3000`
 
 ### without docker
 
@@ -77,3 +71,24 @@ every mdx is basically blog posts and you can categorize the post series by dire
 - post-1.mdx
 - post-2.mdx
 - post-3.mdx
+
+### Troubleshooting
+
+
+#### Multi threads
+
+when start server with docker you can set `number of pm2 instances` via environment variable `CLUSTER_INSTANCES`.
+
+if without docker, you need to server runtime setting like [pm2](https://pm2.keymetrics.io/)
+
+#### There is no volumes in docker
+
+another word: `cannot update posts without build`
+
+In this version, when accessing a URL, the server component replaces the path with slug information, dynamically parsing and directly rendering the corresponding MDX file.
+
+Since Next.js builds include static data required for RSC operation within the build result, dynamic content changes were not possible. The main benefit of this version is the improved loading time in development mode. Parsing MDX files turned out to be more resource-intensive than expected, so in the previous version, even a moderate increase in posts would start to cause performance issues.
+
+To dynamically reflect changes in files and paths within the "posts" directory in a production environment, it seems ideal to forgo SSR component rendering and instead use additional API requests with the fetch() function.
+
+However, a drawback is that pages using 'use client' cannot set Next.js metadata, making it impossible to apply SEO with the current structure. It will require restructuring the relationship between server and client components and adjusting the setup accordingly.
