@@ -3,8 +3,9 @@ declare namespace NodeJS {
     // Site Configurations
     SITE_TITLE: string;
     SITE_DESCRIPTION: string;
+
     /**
-     * @example "https://nextjs-astro-sphere.vercel.app"
+     * @example "https://nextjs-astro-sphere.luas.kr"
      */
     SITE_BASEURL: string;
 
@@ -25,6 +26,10 @@ declare namespace NodeJS {
 
     // Skill Stacks Configurations
     /**
+     * list of skils
+     *
+     * @description separated ":" name and link by ";"
+     *
      * @example "JavaScript:https://www.javascript.com;TypeScript:https://typescriptlang.org/"
      */
     STACKS: string;
@@ -52,6 +57,11 @@ declare namespace NodeJS {
     LOGO_DARK: string;
 
     // Pagination Configurations
+    /**
+     * number of posts per page
+     *
+     * @default 10
+     */
     PGN_SIZE: string;
   }
 }

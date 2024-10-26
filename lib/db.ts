@@ -27,7 +27,7 @@ interface DatabaseSchema {
   legals: Array<PostItem>;
 }
 
-const storage = join(process.cwd(), "./public/posts");
+const storage = join(process.cwd(), "./posts");
 const dbfilepath = join(storage, "db.json");
 
 // nextjs + lowdb + fs is have permission issue
