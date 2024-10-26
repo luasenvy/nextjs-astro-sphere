@@ -3,7 +3,7 @@ export function getTheme() {
 
   if ("light" === theme || "dark" === theme) return theme;
 
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : theme;
 }
 
 export function setTheme(theme: "light" | "dark") {
