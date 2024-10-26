@@ -57,7 +57,7 @@ export default function Header({ site, logo }: HeaderProps) {
   const headerRef = useRef<HTMLElement>(null);
 
   const [scrolled, setScrolled] = useState<boolean>(false);
-  const [dark, setDark] = useState<boolean>(false);
+  const [dark, setDark] = useState<boolean>(true); // default is dark
   const [showDrawer, setShowDrawer] = useState<boolean>(false);
 
   const subpath = pathname.match(/[^/]+/g);
@@ -70,8 +70,10 @@ export default function Header({ site, logo }: HeaderProps) {
   };
 
   useLayoutEffect(() => {
-    setDocumentDark(getTheme() === "dark");
+    const theme = getTheme();
+    setDocumentDark(theme === "dark" || !theme); // default is dark
     setShowDrawer(getDrawer() === "true");
+
     const handleStorage = (e: StorageEvent) => {
       if (e.key === "theme") setDocumentDark(e.newValue === "dark");
       else if (e.key === "drawer") setShowDrawer(e.newValue === "true");
