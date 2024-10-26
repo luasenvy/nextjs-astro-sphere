@@ -21,8 +21,6 @@ COPY --chown=node:node ecosystem.config.js ./ecosystem.config.js
 
 COPY --from=depends --chown=node:node /app/node_modules ./node_modules
 
-VOLUME /app/public
-
 ENV NODE_ENV=production
 ENV HOSTNAME=0.0.0.0
 ENV PORT=3000
