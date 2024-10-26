@@ -6,11 +6,12 @@ export function getTheme() {
   return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : theme;
 }
 
-export function setTheme(theme: "light" | "dark") {
+export function setTheme(theme: string) {
   localStorage.setItem("theme", theme);
   window.dispatchEvent(new StorageEvent("storage", { key: "theme", newValue: theme }));
 }
 
 export function toggleTheme() {
-  setTheme(localStorage.theme === "dark" ? "light" : "dark");
+  // default is dark
+  setTheme((localStorage.theme || "dark") === "dark" ? "light" : "dark");
 }
