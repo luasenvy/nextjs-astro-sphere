@@ -11,17 +11,17 @@ import { twMerge } from "tailwind-merge";
 import Pagination from "./Pagination";
 
 import ArrowCard from "@/components/ArrowCard";
-import { pagination } from "@/config";
 import type { PostItem, PostType } from "@/lib/db";
 
 export interface PostListProps {
   posts: Array<PostItem>;
   series: Array<string>;
   page: number;
+  size: number;
   type: PostType;
 }
 
-export default function PostList({ posts: allPosts, series, page, type }: PostListProps) {
+export default function PostList({ posts: allPosts, series, page, size, type }: PostListProps) {
   const [selecteds, setSelecteds] = useState(new Set<string>());
 
   const {
@@ -34,15 +34,15 @@ export default function PostList({ posts: allPosts, series, page, type }: PostLi
         ? allPosts
         : allPosts.filter((post) => (!post.series ? false : selecteds.has(post.series)));
 
-    const from = (page - 1) * pagination.pageSize;
-    const to = pagination.pageSize * page;
+    const from = (page - 1) * size;
+    const to = size * page;
 
     return {
       from,
       to: seriesedPosts.length > to ? to : seriesedPosts.length,
       posts: seriesedPosts,
     };
-  }, [allPosts, pagination, page, selecteds]);
+  }, [allPosts, size, page, selecteds]);
 
   const posts = useMemo(() => seriesedPosts.slice(from, to), [seriesedPosts, from, to]);
 

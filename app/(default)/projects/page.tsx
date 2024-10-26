@@ -2,7 +2,7 @@ import BottomLayout from "@/components/BottomLayout";
 import PostList from "@/components/PostList";
 import TopLayout from "@/components/TopLayout";
 
-import { author, site } from "@/config";
+import { author, pagination, site } from "@/config";
 import db, { getSeries } from "@/lib/db";
 
 export const metadata = {
@@ -26,7 +26,13 @@ export default async function ProjectsPage({ searchParams }: ProjectPageParams) 
       <TopLayout className="page-heading">Projects</TopLayout>
 
       <BottomLayout>
-        <PostList posts={projects} series={series} page={page} type="projects" />
+        <PostList
+          posts={projects}
+          series={series}
+          page={page}
+          size={pagination.pageSize}
+          type="projects"
+        />
       </BottomLayout>
     </>
   );
