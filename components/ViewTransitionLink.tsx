@@ -39,7 +39,11 @@ export default forwardRef(function ViewTransitionLink(
     handleClick?.(e);
 
     const { target, href } = e.currentTarget;
-    if (target !== "_blank") {
+
+    if (/^(https?:)?\/\//.test(href) && !href.startsWith(location.origin)) {
+      e.preventDefault();
+      window.open(href);
+    } else if (target !== "_blank") {
       e.preventDefault();
       withTransitionTo(router, href);
     }

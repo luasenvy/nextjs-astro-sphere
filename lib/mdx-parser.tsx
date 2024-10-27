@@ -11,8 +11,10 @@ import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 import type { VFile } from "vfile";
 
+import Link, { type ViewTransitionLinkProps } from "@/components/ViewTransitionLink";
 import Counter from "@/components/in-mdx/Counter";
 import MyComponent from "@/components/in-mdx/MyComponent";
+import Youtube from "@/components/in-mdx/Youtube";
 
 const separator = "\n---\n";
 
@@ -86,7 +88,15 @@ export function MDXLoader({ source }: { source?: string }) {
   return source ? (
     <MDXRemote
       source={source}
-      components={{ Counter, MyComponent }}
+      components={{
+        Youtube,
+        Counter,
+        MyComponent,
+        Link,
+        a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
+          <Link {...(props as ViewTransitionLinkProps)} />
+        ),
+      }}
       options={{
         mdxOptions: {
           remarkPlugins: [

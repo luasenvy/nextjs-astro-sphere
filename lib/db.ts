@@ -104,7 +104,7 @@ function entryTo(
   updated: number,
   type: PostType
 ): void {
-  const slug = strname.replace(/\..+$/, "");
+  const slug = strname.substring(0, strname.lastIndexOf("."));
 
   const [series, ...pathname] = strname.split("/");
 
@@ -144,8 +144,9 @@ export function getMetadata(
   slug: string,
   dbname?: keyof DatabaseSchema
 ): Promise<PostItem | undefined> {
+  const decoded = decodeURIComponent(slug);
   return db.then(({ data: { [dbname ?? "blog"]: posts } }) =>
-    posts.find(({ slug: s }) => slug === s)
+    posts.find(({ slug: s }) => decoded === s)
   );
 }
 
@@ -157,8 +158,9 @@ export interface PostArticle {
 }
 
 export function getPostArticle(slug: string, dbname?: PostType): Promise<PostArticle> {
+  const decoded = decodeURIComponent(slug);
   return db.then(({ data: { [dbname ?? "blog"]: posts } }) => {
-    const curr = posts.findIndex(({ slug: s }) => s === slug);
+    const curr = posts.findIndex(({ slug: s }) => decoded === s);
 
     const cursor: PostArticle = {
       body: getContent(posts[curr]?.slug, dbname),
