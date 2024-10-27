@@ -2,7 +2,7 @@ declare module "*.mdx" {
   import type { Element, MDXProps } from "mdx/types";
 
   interface Frontmatter {
-    collection: "projects" | "posts" | "legals";
+    collection: "projects" | "blog" | "legals";
 
     tags: Array<string>;
     slug: string;

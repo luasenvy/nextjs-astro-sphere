@@ -35,7 +35,7 @@ export default async function BlogViewer({ params }: BlogViewerProps) {
   return (
     <>
       <TopLayout>
-        <ArticleTopLayout curr={curr} type="posts" />
+        <ArticleTopLayout curr={curr} type="blog" />
       </TopLayout>
 
       <BottomLayout>
@@ -43,7 +43,7 @@ export default async function BlogViewer({ params }: BlogViewerProps) {
           component={<MDXLoader source={body} />}
           prev={prev}
           next={next}
-          type="posts"
+          type="blog"
         />
       </BottomLayout>
     </>

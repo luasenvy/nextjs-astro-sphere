@@ -70,7 +70,7 @@ export default function Drawer() {
       <div className="flex gap-1 mt-5">
         <Link
           href="/search"
-          aria-label={`Search blog posts and projects on this site`}
+          aria-label="Search blog posts and projects on this site"
           className={twMerge(
             classnames(
               "size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out",

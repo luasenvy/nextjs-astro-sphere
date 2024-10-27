@@ -17,7 +17,7 @@ interface BlogPageParams {
 export default async function BlogPage({ searchParams }: BlogPageParams) {
   const page = Number((await searchParams).page ?? "1");
 
-  const posts = (await db).data.posts;
+  const posts = (await db).data.blog;
 
   const series = getSeries(posts);
 
@@ -31,7 +31,7 @@ export default async function BlogPage({ searchParams }: BlogPageParams) {
           series={series}
           page={page}
           size={pagination.pageSize}
-          type="posts"
+          type="blog"
         />
       </BottomLayout>
     </>

@@ -148,7 +148,7 @@ export default function PostList({ posts: allPosts, series, page, size, type }: 
           </motion.ul>
 
           {/* Pagination... */}
-          <Pagination total={seriesedPosts.length} page={page} size={size} />
+          <Pagination total={seriesedPosts.length} page={page} size={size} type={type} />
         </div>
       </div>
     </div>

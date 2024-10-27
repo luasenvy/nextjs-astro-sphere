@@ -47,7 +47,7 @@ export default function Search({ posts, projects, legals }: SearchProps) {
             className="flex flex-col gap-3"
           >
             <>
-              <SearchResult label="posts" posts={posts} query={query} />
+              <SearchResult label="blog" posts={posts} query={query} />
               <SearchResult label="projects" posts={projects} query={query} />
               <SearchResult label="legals" posts={legals} query={query} />
             </>

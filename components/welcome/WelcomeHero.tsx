@@ -36,7 +36,7 @@ export default function WelcomeHero({
           <p className="text-sm md:text-base lg:text-lg opacity-75">{subtitle}</p>
           <div id="ctaButtons" className="flex flex-wrap gap-4 justify-center mt-5">
             <Link
-              href="/posts"
+              href="/blog"
               className="py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend"
             >
               {primaryLinkText}

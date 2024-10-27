@@ -19,7 +19,7 @@ export const metadata = {
 };
 
 export default async function HomePage() {
-  const posts = (await db).data.posts.slice(0, 3);
+  const posts = (await db).data.blog.slice(0, 3);
   const projects = (await db).data.projects.slice(0, 3);
 
   return (

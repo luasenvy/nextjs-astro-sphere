@@ -4,16 +4,18 @@ import classnames from "classnames";
 import { motion } from "framer-motion";
 
 import Link from "@/components/ViewTransitionLink";
+import type { PostType } from "@/lib/db";
 
 export interface PaginationProps {
   total: number;
   page: number;
   size: number;
+  type: PostType;
 }
 
 const MotionLink = motion.create(Link);
 
-export default function Pagination({ total, page, size }: PaginationProps) {
+export default function Pagination({ total, page, size, type }: PaginationProps) {
   const pages = Math.ceil(total / size);
 
   return (
@@ -40,7 +42,7 @@ export default function Pagination({ total, page, size }: PaginationProps) {
               "hover:bg-black/5 dark:hover:bg-white/20 dark:border-white/25": i + 1 !== page,
             }
           )}
-          href={`/posts?page=${i + 1}`}
+          href={`/${type}?page=${i + 1}`}
         >
           {i + 1}
         </MotionLink>

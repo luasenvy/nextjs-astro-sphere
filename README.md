@@ -24,7 +24,7 @@
 
 ### with docker
 
-1. write your own posts in `./posts`
+1. write your own posts in `/public/posts`
 2. set your own server environment to `.env.production`
 3. execute command `NODE_ENV=production; npm run build`
 4. make docker `docker build -t "$IMAGE_NAME:$IMAGE_TAG" .`
@@ -74,6 +74,11 @@ every mdx is basically blog posts and you can categorize the post series by dire
 
 ### Troubleshooting
 
+#### post with image
+
+image must place in "/public" directory. and use without `/public` path. image src must be absolute url.
+
+e.g. place image file `/public/image.jpg` and use in markdown `![image alt](/image.jpg)`
 
 #### Multi threads
 

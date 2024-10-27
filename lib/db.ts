@@ -7,7 +7,7 @@ import { JSONFilePreset } from "lowdb/node";
 
 import { author, logo, site } from "@/config";
 
-export type PostType = "posts" | "projects" | "careers" | "legals";
+export type PostType = "blog" | "projects" | "careers" | "legals";
 
 export interface PostItem {
   series?: string;
@@ -21,13 +21,13 @@ export interface PostItem {
 }
 
 interface DatabaseSchema {
-  posts: Array<PostItem>;
+  blog: Array<PostItem>;
   projects: Array<PostItem>;
   careers: Array<PostItem>;
   legals: Array<PostItem>;
 }
 
-const storage = join(process.cwd(), "./posts");
+const storage = join(process.cwd(), "./public/posts");
 const dbfilepath = join(storage, "db.json");
 
 // nextjs + lowdb + fs is have permission issue
@@ -59,7 +59,7 @@ export const feed = new Feed({
 });
 
 const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
-  posts: [],
+  blog: [],
   projects: [],
   careers: [],
   legals: [],
@@ -67,7 +67,7 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
   // initialize
   .then((db) => {
     // clear all data
-    db.data.posts = [];
+    db.data.blog = [];
     db.data.projects = [];
     db.data.careers = [];
     db.data.legals = [];
@@ -89,7 +89,7 @@ const db = JSONFilePreset<DatabaseSchema>(dbfilepath, {
 
       if (table)
         entryTo(table, pathname.join("/"), created, updated, series as keyof DatabaseSchema);
-      else entryTo(db.data.posts, strname, created, updated, "posts");
+      else entryTo(db.data.blog, strname, created, updated, "blog");
     }
 
     db.write();
@@ -144,7 +144,7 @@ export function getMetadata(
   slug: string,
   dbname?: keyof DatabaseSchema
 ): Promise<PostItem | undefined> {
-  return db.then(({ data: { [dbname ?? "posts"]: posts } }) =>
+  return db.then(({ data: { [dbname ?? "blog"]: posts } }) =>
     posts.find(({ slug: s }) => slug === s)
   );
 }
@@ -157,7 +157,7 @@ export interface PostArticle {
 }
 
 export function getPostArticle(slug: string, dbname?: PostType): Promise<PostArticle> {
-  return db.then(({ data: { [dbname ?? "posts"]: posts } }) => {
+  return db.then(({ data: { [dbname ?? "blog"]: posts } }) => {
     const curr = posts.findIndex(({ slug: s }) => s === slug);
 
     const cursor: PostArticle = {

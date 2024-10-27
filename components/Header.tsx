@@ -38,7 +38,7 @@ export const nav = [
   },
   {
     name: "Blog",
-    href: "/posts",
+    href: "/blog",
   },
   {
     name: "Projects",
@@ -157,7 +157,7 @@ export default function Header({ site, logo }: HeaderProps) {
           <div className="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
             <Link
               href="/search"
-              aria-label={`Search blog posts and projects on this site`}
+              aria-label="Search blog posts and projects on this site"
               className={twMerge(
                 classnames(
                   "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out",

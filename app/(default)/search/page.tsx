@@ -12,13 +12,13 @@ export const metadata = {
 };
 
 export default async function SearchPage() {
-  const { posts, projects, legals } = (await db).data;
+  const { blog, projects, legals } = (await db).data;
 
   return (
     <>
       <TopLayout>Search</TopLayout>
       <BottomLayout>
-        <Search posts={posts} projects={projects} legals={legals} />
+        <Search posts={blog} projects={projects} legals={legals} />
       </BottomLayout>
     </>
   );
