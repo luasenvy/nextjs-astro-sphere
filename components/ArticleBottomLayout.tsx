@@ -1,8 +1,10 @@
 "use client";
 
-import "prismjs/themes/prism-twilight.css";
-
 import { motion } from "framer-motion";
+
+import { useSearchParams } from "next/navigation";
+
+import { useMemo } from "react";
 
 import ArrowDown from "./icons/ArrowDown";
 
@@ -22,6 +24,17 @@ export default function ArticleBottomLayout({
   next,
   type,
 }: ArticleBottomLayoutProps) {
+  const searchParams = useSearchParams();
+
+  const returnToSearchParams = useMemo(
+    () =>
+      new URLSearchParams({
+        filter: (searchParams.get("filter") as string) ?? undefined,
+        page: (searchParams.get("page") as string) ?? undefined,
+      }),
+    [searchParams]
+  );
+
   return (
     <section>
       <motion.article
@@ -41,7 +54,7 @@ export default function ArticleBottomLayout({
       >
         {prev ? (
           <Link
-            href={`/${type}/${prev.slug}`}
+            href={`/${type}/${prev.slug}?${returnToSearchParams}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend"
           >
             <div className="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
@@ -58,7 +71,7 @@ export default function ArticleBottomLayout({
 
         {next ? (
           <Link
-            href={`/${type}/${next.slug}`}
+            href={`/${type}/${next.slug}?${returnToSearchParams}`}
             className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
           >
             <div className="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">

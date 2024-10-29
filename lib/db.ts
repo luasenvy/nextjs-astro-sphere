@@ -5,6 +5,8 @@ import { Feed } from "feed";
 
 import { JSONFilePreset } from "lowdb/node";
 
+import type { MetadataRoute } from "next";
+
 import { author, logo, site } from "@/config";
 
 export type PostType = "blog" | "projects" | "careers" | "legals";
@@ -157,9 +159,21 @@ export interface PostArticle {
   next?: PostItem;
 }
 
-export function getPostArticle(slug: string, dbname?: PostType): Promise<PostArticle> {
+export function getPostArticle({
+  slug,
+  filter,
+  dbname,
+}: {
+  slug: string;
+  filter?: Array<string>;
+  dbname?: PostType;
+}): Promise<PostArticle> {
   const decoded = decodeURIComponent(slug);
-  return db.then(({ data: { [dbname ?? "blog"]: posts } }) => {
+  return db.then(({ data: { [dbname ?? "blog"]: contents } }) => {
+    const posts = contents.filter(({ series }) =>
+      filter?.length ? filter.includes(series ?? "") : true
+    );
+
     const curr = posts.findIndex(({ slug: s }) => decoded === s);
 
     const cursor: PostArticle = {
@@ -182,6 +196,26 @@ export function getSeries(posts: Array<PostItem>) {
   return Array.from(
     posts.reduce((acc, { series }) => (series ? acc.add(series) : acc), new Set<string>())
   );
+}
+
+export function getSitemapIndexies(total: number, limit: number): Array<{ id: number }> {
+  return new Array(Math.ceil(total / limit)).fill(0).map((_, id) => ({ id }));
+}
+
+export function getSitemaps(
+  posts: Array<PostItem>,
+  id: number,
+  limit: number,
+  type: PostType
+): MetadataRoute.Sitemap {
+  const from = id * limit;
+
+  return posts.slice(from, from + limit).map(({ slug, updated }) => ({
+    url: `${site.baseurl}/${type}/${slug}`,
+    changeFrequency: "monthly",
+    priority: 0.5,
+    lastModified: new Date(updated).toLocaleString(),
+  }));
 }
 
 export default db;

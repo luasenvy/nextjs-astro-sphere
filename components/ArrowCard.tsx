@@ -1,17 +1,18 @@
-import Link from "@/components/ViewTransitionLink";
+import ArrowDown from "./icons/ArrowDown";
 
 import type { PostItem, PostType } from "@/lib/db";
 
 type ArrowCardProps = {
   post: PostItem;
   type: PostType;
+  onSelect: (post: PostItem) => void;
 };
 
-export default function ArrowCard({ post, type }: ArrowCardProps) {
+export default function ArrowCard({ post, type, onSelect: handleSelect }: ArrowCardProps) {
   return (
-    <Link
-      href={`/${type}/${post.slug}`}
-      className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
+    <button
+      onClick={() => handleSelect(post)}
+      className="w-full group p-4 gap-3 flex text-left items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
     >
       <div className="w-full group-hover:text-black group-hover:dark:text-white blend">
         <div className="flex flex-wrap items-center gap-2">
@@ -42,29 +43,7 @@ export default function ArrowCard({ post, type }: ArrowCardProps) {
           ))}
         </ul> */}
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white"
-      >
-        <line
-          x1="5"
-          y1="12"
-          x2="19"
-          y2="12"
-          className="scale-x-0 group-hover:scale-x-100 translate-x-4 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
-        />
-        <polyline
-          points="12 5 19 12 12 19"
-          className="translate-x-0 group-hover:translate-x-1 transition-all duration-300 ease-in-out"
-        />
-      </svg>
-    </Link>
+      <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-180" />
+    </button>
   );
 }

@@ -3,7 +3,6 @@ import Galaxy from "@/components/welcome/Galaxy";
 import Particles from "@/components/welcome/Particles";
 import Planet from "@/components/welcome/Planet";
 import RecentPosts from "@/components/welcome/RecentPosts";
-import RecentProjects from "@/components/welcome/RecentProjects";
 import SkillStack from "@/components/welcome/SkillStack";
 import Stars from "@/components/welcome/Stars";
 
@@ -40,11 +39,11 @@ export default async function HomePage() {
         <div className="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
           <WelcomeTypography text={welcome.introduce} />
 
-          <RecentPosts posts={posts} />
+          <RecentPosts posts={posts} type="blog" />
 
           <SkillStack stack={stack} />
 
-          <RecentProjects projects={projects} />
+          <RecentPosts posts={projects} type="projects" />
 
           <ConnectSocial social={social} />
         </div>

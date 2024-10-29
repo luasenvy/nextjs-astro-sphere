@@ -11,7 +11,9 @@ export const metadata = {
 
 export default async function CareerPage() {
   const careers = await Promise.all(
-    (await db).data.careers.map((career) => getPostArticle(career.slug, "careers"))
+    (await db).data.careers.map((career) =>
+      getPostArticle({ slug: career.slug, dbname: "careers" })
+    )
   );
 
   return (

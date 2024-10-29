@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: LegalViewerProps) {
 export default async function LegalViewer({ params }: LegalViewerProps) {
   const slug = (await params).slug.join("/");
 
-  const { body, curr, prev, next } = await getPostArticle(slug, "legals");
+  const { body, curr, prev, next } = await getPostArticle({ slug, dbname: "legals" });
 
   if (!curr || !body) return redirect("/404");
 

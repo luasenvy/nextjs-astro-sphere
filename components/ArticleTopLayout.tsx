@@ -1,12 +1,15 @@
 "use client";
 
 import CalendarToday from "@mui/icons-material/CalendarToday";
+
 import LinkIcon from "@mui/icons-material/Link";
 import MenuBook from "@mui/icons-material/MenuBook";
 import Public from "@mui/icons-material/Public";
 import classnames from "classnames";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+
+import { useMemo } from "react";
 
 import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
 import ArrowDown from "@/components/icons/ArrowDown";
@@ -27,24 +30,34 @@ export interface ArticleTopLayoutProps {
 
 export default function ArticleTopLayout({ curr, type }: ArticleTopLayoutProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const returnToSearchParams = useMemo(() => {
+    const searchParams = new URLSearchParams();
+    if (searchParams.get("filter"))
+      searchParams.append("filter", searchParams.get("filter") as string);
+    if (searchParams.get("page")) searchParams.append("page", searchParams.get("page") as string);
+    return searchParams;
+  }, [searchParams]);
 
   return (
     curr && (
       <div>
-        <button
+        <Link
+          href={`/${type}?${returnToSearchParams}`}
           className={classnames(
             "group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out",
             {
               hidden: type === "legals",
             }
           )}
-          onClick={() => withTransitionTo(router, `/${type}`)}
+          onClick={() => withTransitionTo(router, `/${type}?${returnToSearchParams}`)}
         >
           <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white" />
           <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
             Back to {type}
           </div>
-        </button>
+        </Link>
         <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
           <div className="flex items-center gap-2">
             <CalendarToday className="size-4 stroke-current" />

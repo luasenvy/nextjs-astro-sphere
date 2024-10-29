@@ -25,6 +25,7 @@ export default function WelcomeHero({
       className="absolute h-full w-full flex items-center justify-center"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
     >
       <div className="relative w-full h-full flex items-center justify-center">

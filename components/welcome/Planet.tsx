@@ -9,6 +9,7 @@ export default function Planet() {
       className="absolute inset-0 top-1/4 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.56, ease: "easeInOut" }}
     >
       <div

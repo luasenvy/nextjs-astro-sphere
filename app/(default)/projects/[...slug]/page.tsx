@@ -13,6 +13,9 @@ interface ProjectViewerProps {
   params: Promise<{
     slug: Array<string>;
   }>;
+  searchParams: Promise<{
+    filter?: string;
+  }>;
 }
 
 // cannot reusable: https://github.com/vercel/next.js/discussions/50080
@@ -25,10 +28,15 @@ export async function generateMetadata({ params }: ProjectViewerProps) {
   return { title: metadata.title };
 }
 
-export default async function ProjectViewer({ params }: ProjectViewerProps) {
+export default async function ProjectViewer({ params, searchParams }: ProjectViewerProps) {
   const slug = (await params).slug.join("/");
+  const { filter } = await searchParams;
 
-  const { body, curr, prev, next } = await getPostArticle(slug, "projects");
+  const { body, curr, prev, next } = await getPostArticle({
+    slug,
+    filter: filter?.split(",").filter(Boolean),
+    dbname: "projects",
+  });
 
   if (!curr || !body) return redirect("/404");
 

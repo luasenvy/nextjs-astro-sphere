@@ -5,10 +5,13 @@ import Square from "@mui/icons-material/Square";
 
 import classnames from "classnames";
 import { motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { redirect, useRouter } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 import Pagination from "./Pagination";
+
+import { withTransitionTo } from "./ViewTransitionLink";
 
 import ArrowCard from "@/components/ArrowCard";
 import type { PostItem, PostType } from "@/lib/db";
@@ -16,45 +19,69 @@ import type { PostItem, PostType } from "@/lib/db";
 export interface PostListProps {
   posts: Array<PostItem>;
   series: Array<string>;
+  filter?: string;
   page: number;
   size: number;
   type: PostType;
 }
 
-export default function PostList({ posts: allPosts, series, page, size, type }: PostListProps) {
-  const [selecteds, setSelecteds] = useState(new Set<string>());
+export default function PostList({
+  posts: allPosts,
+  series,
+  filter,
+  page,
+  size,
+  type,
+}: PostListProps) {
+  const router = useRouter();
+
+  if (filter) filter = decodeURIComponent(filter);
+  const [selecteds] = useState(new Set<string>(filter?.split(",").filter(Boolean)));
 
   const {
+    posts: seriesedPosts,
     from,
     to,
-    posts: seriesedPosts,
+    total,
   } = useMemo(() => {
-    const seriesedPosts =
-      selecteds.size === 0
-        ? allPosts
-        : allPosts.filter((post) => (!post.series ? false : selecteds.has(post.series)));
+    const seriesedPosts = !selecteds.size
+      ? allPosts
+      : allPosts.filter((post) => (!post.series ? false : selecteds.has(post.series)));
 
     const from = (page - 1) * size;
     const to = size * page;
 
+    const total = seriesedPosts.length;
+
     return {
-      from,
-      to: seriesedPosts.length > to ? to : seriesedPosts.length,
       posts: seriesedPosts,
+      from,
+      to: total > to ? to : total,
+      total,
     };
   }, [allPosts, size, page, selecteds]);
 
   const posts = useMemo(() => seriesedPosts.slice(from, to), [seriesedPosts, from, to]);
 
   const handleClickSeriesToggle = (series: string) => {
-    setSelecteds((prev) => {
-      const prevTags = Array.from(prev);
+    if (selecteds.has(series)) selecteds.delete(series);
+    else selecteds.add(series);
 
-      return new Set(
-        prevTags.includes(series) ? prevTags.filter((p) => p !== series) : prevTags.concat(series)
-      );
-    });
+    const filter = Array.from(selecteds);
+    const searchParams = new URLSearchParams({ page: String(page) });
+    if (filter?.length) searchParams.append("filter", filter.join(","));
+
+    withTransitionTo(router, `/${type}?${searchParams}`);
   };
+
+  useEffect(() => {
+    if (from <= total) return;
+
+    withTransitionTo(
+      router,
+      `/${type}?${new URLSearchParams({ page: "1", filter: Array.from(selecteds).join(",") })}`
+    );
+  }, [from, total]);
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -123,7 +150,7 @@ export default function PostList({ posts: allPosts, series, page, size, type }: 
       <div className="col-span-3 sm:col-span-2">
         <div className="flex flex-col">
           <div className="text-sm uppercase mb-2">
-            SHOWING {from + 1} TO {to} OF {seriesedPosts.length} POSTS
+            SHOWING {from + 1} TO {to} OF {total} POSTS
           </div>
           <motion.ul
             variants={{
@@ -142,13 +169,32 @@ export default function PostList({ posts: allPosts, series, page, size, type }: 
                   block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
                 }}
               >
-                <ArrowCard post={post} type={type} />
+                <ArrowCard
+                  post={post}
+                  type={type}
+                  onSelect={() =>
+                    withTransitionTo(
+                      router,
+                      `/${type}/${post.slug}?${new URLSearchParams({ page: String(page), filter: Array.from(selecteds).join(",") })}`
+                    )
+                  }
+                />
               </motion.li>
             ))}
           </motion.ul>
 
           {/* Pagination... */}
-          <Pagination total={seriesedPosts.length} page={page} size={size} type={type} />
+          <Pagination
+            total={total}
+            page={page}
+            size={size}
+            onChange={(page) =>
+              withTransitionTo(
+                router,
+                `/${type}?${new URLSearchParams({ page: String(page), filter: Array.from(selecteds).join(",") })}`
+              )
+            }
+          />
         </div>
       </div>
     </div>

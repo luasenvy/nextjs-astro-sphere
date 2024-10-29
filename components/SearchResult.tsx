@@ -4,7 +4,10 @@ import { motion } from "framer-motion";
 
 import Fuse from "fuse.js";
 
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
+
+import { withTransitionTo } from "./ViewTransitionLink";
 
 import ArrowCard from "@/components/ArrowCard";
 import type { PostItem, PostType } from "@/lib/db";
@@ -16,6 +19,7 @@ export interface SearchResultProps {
 }
 
 export default function SearchResult({ label, posts, query }: SearchResultProps) {
+  const router = useRouter();
   const fuse = new Fuse(posts, {
     keys: ["slug", "title", "series"],
     includeMatches: true,
@@ -36,7 +40,11 @@ export default function SearchResult({ label, posts, query }: SearchResultProps)
         block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
       }}
     >
-      <ArrowCard post={result} type={label} />
+      <ArrowCard
+        post={result}
+        type={label}
+        onSelect={() => withTransitionTo(router, `/${label}/${result.slug}?query=${query}`)}
+      />
     </motion.li>
   ));
 }

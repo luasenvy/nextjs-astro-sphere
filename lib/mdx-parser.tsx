@@ -1,4 +1,4 @@
-import "highlight.js/styles/github-dark.css";
+import "highlight.js/styles/monokai-sublime.css";
 
 import type { Root } from "mdast";
 import { MDXRemote } from "next-mdx-remote/rsc";

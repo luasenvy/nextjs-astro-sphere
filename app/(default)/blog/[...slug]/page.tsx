@@ -10,6 +10,9 @@ import { getMetadata, getPostArticle } from "@/lib/db";
 import { MDXLoader } from "@/lib/mdx-parser";
 
 interface BlogViewerProps {
+  searchParams: Promise<{
+    filter?: string;
+  }>;
   params: Promise<{
     slug: Array<string>;
   }>;
@@ -25,10 +28,14 @@ export async function generateMetadata({ params }: BlogViewerProps) {
   return { title: metadata.title };
 }
 
-export default async function BlogViewer({ params }: BlogViewerProps) {
+export default async function BlogViewer({ params, searchParams }: BlogViewerProps) {
   const slug = (await params).slug.join("/");
+  const { filter } = await searchParams;
 
-  const { body, curr, prev, next } = await getPostArticle(slug);
+  const { body, curr, prev, next } = await getPostArticle({
+    slug,
+    filter: filter?.split(",").filter(Boolean),
+  });
 
   if (!curr || !body) return redirect("/404");
 

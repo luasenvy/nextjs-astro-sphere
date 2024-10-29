@@ -3,19 +3,14 @@
 import classnames from "classnames";
 import { motion } from "framer-motion";
 
-import Link from "@/components/ViewTransitionLink";
-import type { PostType } from "@/lib/db";
-
 export interface PaginationProps {
   total: number;
   page: number;
   size: number;
-  type: PostType;
+  onChange: (page: number) => void;
 }
 
-const MotionLink = motion.create(Link);
-
-export default function Pagination({ total, page, size, type }: PaginationProps) {
+export default function Pagination({ total, page, size, onChange: handleChange }: PaginationProps) {
   const pages = Math.ceil(total / size);
 
   return (
@@ -29,7 +24,7 @@ export default function Pagination({ total, page, size, type }: PaginationProps)
       className="mt-6 flex items-center justify-center gap-2"
     >
       {new Array(pages).fill(0).map((_, i) => (
-        <MotionLink
+        <motion.button
           key={`page-${i}`}
           variants={{
             hidden: { opacity: 0, y: 20 },
@@ -42,10 +37,10 @@ export default function Pagination({ total, page, size, type }: PaginationProps)
               "hover:bg-black/5 dark:hover:bg-white/20 dark:border-white/25": i + 1 !== page,
             }
           )}
-          href={`/${type}?page=${i + 1}`}
+          onClick={() => handleChange(i + 1)}
         >
           {i + 1}
-        </MotionLink>
+        </motion.button>
       ))}
     </motion.nav>
   );

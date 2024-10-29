@@ -11,11 +11,12 @@ export const metadata = {
 };
 
 interface BlogPageParams {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; filter?: string }>;
 }
 
 export default async function BlogPage({ searchParams }: BlogPageParams) {
-  const page = Number((await searchParams).page ?? "1");
+  const { filter } = await searchParams;
+  const page = Number((await searchParams).page);
 
   const posts = (await db).data.blog;
 
@@ -29,7 +30,8 @@ export default async function BlogPage({ searchParams }: BlogPageParams) {
         <PostList
           posts={posts}
           series={series}
-          page={page}
+          filter={filter}
+          page={isNaN(page) ? 1 : page}
           size={pagination.pageSize}
           type="blog"
         />

@@ -11,11 +11,12 @@ export const metadata = {
 };
 
 interface ProjectPageParams {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; filter?: string }>;
 }
 
 export default async function ProjectsPage({ searchParams }: ProjectPageParams) {
-  const page = Number((await searchParams).page ?? "1");
+  const { filter } = await searchParams;
+  const page = Number((await searchParams).page);
 
   const projects = (await db).data.projects;
 
@@ -29,7 +30,8 @@ export default async function ProjectsPage({ searchParams }: ProjectPageParams) 
         <PostList
           posts={projects}
           series={series}
-          page={page}
+          filter={filter}
+          page={isNaN(page) ? 1 : page}
           size={pagination.pageSize}
           type="projects"
         />
