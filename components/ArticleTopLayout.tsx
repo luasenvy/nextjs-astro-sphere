@@ -55,7 +55,8 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
             Back to {type}
           </div>
         </Link>
-        <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
+
+        <div className="flex flex-col sm:flex-row flex-wrap text-sm uppercase gap-3 opacity-75 my-6">
           <div className="flex items-center gap-2">
             <CalendarToday className="size-4" />
 
@@ -79,10 +80,12 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
             </>
           )}
         </div>
-        <h1 className="text-3xl font-semibold text-black dark:text-white mt-2">{curr.title}</h1>
+
+        <h1 className="text-3xl font-semibold text-black dark:text-white my-6">{curr.title}</h1>
+
         {/* <div className="mt-1">{curr.description}</div> */}
         {(curr.demo || curr.repo) && (
-          <div className="mt-4 flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2">
             {curr.demo && (
               <Link
                 href={curr.demo}
