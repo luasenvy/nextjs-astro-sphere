@@ -36,7 +36,6 @@ export default async function BlogViewer({ params, searchParams }: BlogViewerPro
     slug,
     filter: filter?.split(",").filter(Boolean),
   });
-  console.info(readingTime);
 
   if (!curr || !body) return redirect("/404");
 
