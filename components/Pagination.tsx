@@ -31,7 +31,7 @@ export default function Pagination({ total, page, size, onChange: handleChange }
             block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
           }}
           className={classnames(
-            "size-7 font-mono rounded-full flex text-center items-center justify-center bg-transparent border border-black/10 transition-colors duration-300 ease-in-out",
+            "size-7 font-mono rounded-full flex text-xs text-center items-center justify-center bg-transparent border border-black/10 transition-colors duration-300 ease-in-out",
             {
               "bg-black/5 dark:bg-white/20": i + 1 === page,
               "hover:bg-black/5 dark:hover:bg-white/20 dark:border-white/25": i + 1 !== page,
