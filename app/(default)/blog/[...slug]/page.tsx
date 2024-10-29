@@ -32,17 +32,18 @@ export default async function BlogViewer({ params, searchParams }: BlogViewerPro
   const slug = (await params).slug.join("/");
   const { filter } = await searchParams;
 
-  const { body, curr, prev, next } = await getPostArticle({
+  const { body, curr, prev, next, readingTime } = await getPostArticle({
     slug,
     filter: filter?.split(",").filter(Boolean),
   });
+  console.info(readingTime);
 
   if (!curr || !body) return redirect("/404");
 
   return (
     <>
       <TopLayout>
-        <ArticleTopLayout curr={curr} type="blog" />
+        <ArticleTopLayout curr={curr} type="blog" readingTime={readingTime} />
       </TopLayout>
 
       <BottomLayout>

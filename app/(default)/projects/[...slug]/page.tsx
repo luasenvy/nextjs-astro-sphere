@@ -32,7 +32,7 @@ export default async function ProjectViewer({ params, searchParams }: ProjectVie
   const slug = (await params).slug.join("/");
   const { filter } = await searchParams;
 
-  const { body, curr, prev, next } = await getPostArticle({
+  const { body, curr, prev, next, readingTime } = await getPostArticle({
     slug,
     filter: filter?.split(",").filter(Boolean),
     dbname: "projects",
@@ -43,7 +43,7 @@ export default async function ProjectViewer({ params, searchParams }: ProjectVie
   return (
     <>
       <TopLayout>
-        <ArticleTopLayout curr={curr} type="projects" />
+        <ArticleTopLayout curr={curr} type="projects" readingTime={readingTime} />
       </TopLayout>
 
       <BottomLayout>

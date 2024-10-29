@@ -1,5 +1,6 @@
 "use client";
 
+import Article from "@mui/icons-material/Article";
 import CalendarToday from "@mui/icons-material/CalendarToday";
 
 import LinkIcon from "@mui/icons-material/Link";
@@ -11,6 +12,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { useMemo } from "react";
 
+import type { ReadTimeResults } from "reading-time";
+
 import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
 import ArrowDown from "@/components/icons/ArrowDown";
 
@@ -19,16 +22,10 @@ import type { PostItem, PostType } from "@/lib/db";
 export interface ArticleTopLayoutProps {
   curr: PostItem;
   type: PostType;
+  readingTime?: ReadTimeResults;
 }
 
-// const getReadingTime = (html: string) => {
-//   const textOnly = html.replace(/<[^>]+>/g, "");
-//   const wordCount = textOnly.split(/\s+/).length;
-//   const readingTimeMinutes = (wordCount / 200 + 1).toFixed();
-//   return `${readingTimeMinutes} min read`;
-// };
-
-export default function ArticleTopLayout({ curr, type }: ArticleTopLayoutProps) {
+export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTopLayoutProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -60,7 +57,7 @@ export default function ArticleTopLayout({ curr, type }: ArticleTopLayoutProps) 
         </Link>
         <div className="flex flex-wrap text-sm uppercase mt-12 gap-3 opacity-75">
           <div className="flex items-center gap-2">
-            <CalendarToday className="size-4 stroke-current" />
+            <CalendarToday className="size-4" />
 
             {curr.created &&
               Intl.DateTimeFormat(undefined, {
@@ -69,10 +66,18 @@ export default function ArticleTopLayout({ curr, type }: ArticleTopLayoutProps) 
                 year: "numeric",
               }).format(new Date(curr.created))}
           </div>
-          <div className="flex items-center gap-2">
-            <MenuBook className="size-4 stroke-current" />
-            {/* {readingTime} */}
-          </div>
+          {readingTime && (
+            <>
+              <div className="flex items-center gap-2">
+                <MenuBook className="size-4" />
+                {new Intl.NumberFormat().format(Math.ceil(readingTime.minutes))} min read
+              </div>
+              <div className="flex items-center gap-2">
+                <Article className="size-4" />
+                {new Intl.NumberFormat().format(readingTime.words)} words
+              </div>
+            </>
+          )}
         </div>
         <h1 className="text-3xl font-semibold text-black dark:text-white mt-2">{curr.title}</h1>
         {/* <div className="mt-1">{curr.description}</div> */}

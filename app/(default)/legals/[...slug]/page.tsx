@@ -28,14 +28,14 @@ export async function generateMetadata({ params }: LegalViewerProps) {
 export default async function LegalViewer({ params }: LegalViewerProps) {
   const slug = (await params).slug.join("/");
 
-  const { body, curr, prev, next } = await getPostArticle({ slug, dbname: "legals" });
+  const { body, curr, prev, next, readingTime } = await getPostArticle({ slug, dbname: "legals" });
 
   if (!curr || !body) return redirect("/404");
 
   return (
     <>
       <TopLayout>
-        <ArticleTopLayout curr={curr} type="legals" />
+        <ArticleTopLayout curr={curr} type="legals" readingTime={readingTime} />
       </TopLayout>
 
       <BottomLayout>

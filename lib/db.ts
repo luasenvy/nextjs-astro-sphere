@@ -4,8 +4,9 @@ import { join } from "path";
 import { Feed } from "feed";
 
 import { JSONFilePreset } from "lowdb/node";
-
 import type { MetadataRoute } from "next";
+import type { ReadTimeResults } from "reading-time";
+import rt from "reading-time";
 
 import { author, logo, site } from "@/config";
 
@@ -154,6 +155,7 @@ export function getMetadata(
 
 export interface PostArticle {
   body?: string;
+  readingTime?: ReadTimeResults;
   curr?: PostItem;
   prev?: PostItem;
   next?: PostItem;
@@ -176,10 +178,8 @@ export function getPostArticle({
 
     const curr = posts.findIndex(({ slug: s }) => decoded === s);
 
-    const cursor: PostArticle = {
-      body: getContent(posts[curr]?.slug, dbname),
-      curr: posts[curr],
-    };
+    const body = getContent(posts[curr]?.slug, dbname);
+    const cursor: PostArticle = { body, curr: posts[curr], readingTime: rt(body) };
 
     if (curr > 0) cursor.prev = posts[curr - 1];
     if (curr < posts.length - 1) cursor.next = posts[curr + 1];
