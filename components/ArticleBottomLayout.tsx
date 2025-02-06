@@ -50,20 +50,20 @@ export default function ArticleBottomLayout({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: "some" }}
         transition={{ duration: 0.56, ease: "easeInOut", delay: 0.08 * 2 }}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
       >
         {prev ? (
           <Link
             href={`/${type}/${prev.slug}?${returnToSearchParams}`}
-            className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 blend"
+            className="blend group flex items-center gap-3 rounded-lg border border-black/15 p-4 hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"
           >
-            <div className="order-2 w-full h-full group-hover:text-black group-hover:dark:text-white blend">
+            <div className="blend order-2 h-full w-full group-hover:text-black group-hover:dark:text-white">
               <div className="flex flex-wrap gap-2">
                 <div className="text-sm uppercase">Prev</div>
               </div>
-              <div className="font-semibold mt-3 text-black dark:text-white">{prev.title}</div>
+              <div className="mt-3 font-semibold text-black dark:text-white">{prev.title}</div>
             </div>
-            <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-270" />
+            <ArrowDown className="rotate-270 stroke-current group-hover:stroke-black group-hover:dark:stroke-white" />
           </Link>
         ) : (
           <div className="invisible"></div>
@@ -72,13 +72,13 @@ export default function ArticleBottomLayout({
         {next ? (
           <Link
             href={`/${type}/${next.slug}?${returnToSearchParams}`}
-            className="group p-4 gap-3 flex items-center border rounded-lg hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
+            className="group flex items-center gap-3 rounded-lg border border-black/15 p-4 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"
           >
-            <div className="w-full h-full text-right group-hover:text-black group-hover:dark:text-white blend">
+            <div className="blend h-full w-full text-right group-hover:text-black group-hover:dark:text-white">
               <div className="text-sm uppercase">Next</div>
-              <div className="font-semibold mt-3 text-black dark:text-white">{next.title}</div>
+              <div className="mt-3 font-semibold text-black dark:text-white">{next.title}</div>
             </div>
-            <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-180" />
+            <ArrowDown className="rotate-180 stroke-current group-hover:stroke-black group-hover:dark:stroke-white" />
           </Link>
         ) : (
           <div className="invisible"></div>

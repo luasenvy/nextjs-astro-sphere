@@ -25,10 +25,10 @@ export default function CareerItem({ curr }: PostArticle) {
       viewport={{ once: true, amount: 0.4 }}
       className="py-8 first-of-type:mt-0 first-of-type:pt-0 last-of-type:border-none"
     >
-      <div className="text-sm uppercase mb-4">
+      <div className="mb-4 text-sm uppercase">
         {curr && formatDate(curr.created)} - {curr && formatDate(curr.updated)}
       </div>
-      <div className="text-black dark:text-white font-semibold">{curr?.title}</div>
+      <div className="font-semibold text-black dark:text-white">{curr?.title}</div>
       {/* <div className="text-sm font-semibold">{metadata.role}</div> */}
       {/* <article className="prose dark:prose-invert">{Component && <Component />}</article> */}
     </motion.li>

@@ -25,12 +25,12 @@ export default function Footer({ site, author, social, logo }: FooterProps) {
             <button
               id="back-to-top"
               aria-label="Back to top of page"
-              className="group flex w-fit p-1.5 gap-1.5 text-sm items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out"
+              className="group flex w-fit items-center gap-1.5 rounded border border-black/15 p-1.5 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
-              <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white rotate-90" />
+              <ArrowDown className="rotate-90 stroke-current group-hover:stroke-black group-hover:dark:stroke-white" />
 
-              <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
+              <div className="w-full transition-colors duration-300 ease-in-out group-hover:text-black group-hover:dark:text-white">
                 Back to top
               </div>
             </button>
@@ -38,13 +38,13 @@ export default function Footer({ site, author, social, logo }: FooterProps) {
         </Container>
       </section>
 
-      <section className="py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
+      <section className="overflow-hidden whitespace-nowrap border-t border-black/10 py-5 dark:border-white/25">
         <Container size="md">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="flex flex-col items-center sm:items-start">
               <Link
                 href="/"
-                className="flex gap-1 w-fit font-semibold text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+                className="flex w-fit gap-1 font-semibold text-current transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-white"
               >
                 {logo.light && (
                   <Image
@@ -67,10 +67,10 @@ export default function Footer({ site, author, social, logo }: FooterProps) {
                 {site.name}
               </Link>
             </div>
-            <div className="flex gap-2 justify-center sm:justify-end items-center">
+            <div className="flex items-center justify-center gap-2 sm:justify-end">
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-300"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-300"></span>
+                <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
               </span>
               All systems normal
             </div>
@@ -78,37 +78,37 @@ export default function Footer({ site, author, social, logo }: FooterProps) {
         </Container>
       </section>
 
-      <section className="py-5 overflow-hidden whitespace-nowrap border-t border-black/10 dark:border-white/25">
+      <section className="overflow-hidden whitespace-nowrap border-t border-black/10 py-5 dark:border-white/25">
         <Container size="md">
-          <div className="h-full grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div className="order-2 sm:order-1 flex flex-col items-center justify-center sm:items-start">
+          <div className="grid h-full grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="order-2 flex flex-col items-center justify-center sm:order-1 sm:items-start">
               <div className="legal">
                 <Link
                   href="/legals/terms"
-                  className="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+                  className="text-current transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-white"
                 >
                   Terms
                 </Link>{" "}
                 |{" "}
                 <Link
                   href="/legals/privacy"
-                  className="text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+                  className="text-current transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-white"
                 >
                   Privacy
                 </Link>
               </div>
-              <div className="text-sm mt-2">&copy; 2024 {author.name} | All rights reserved</div>
+              <div className="mt-2 text-sm">&copy; 2024 {author.name} | All rights reserved</div>
             </div>
 
-            <div className="order-1 sm:order-2 flex justify-center sm:justify-end">
-              <div className="flex flex-wrap gap-1 items-center justify-center">
+            <div className="order-1 flex justify-center sm:order-2 sm:justify-end">
+              <div className="flex flex-wrap items-center justify-center gap-1">
                 {social.map(({ name, href, icon }, i) => (
                   <Link
                     key={`social-${i}`}
                     href={href}
                     target="_blank"
                     aria-label={`connect ${name}`}
-                    className="group size-10 rounded-full p-2 items-center justify-center hover:bg-black/5 dark:hover:bg-white/20  blend"
+                    className="blend group size-10 items-center justify-center rounded-full p-2 hover:bg-black/5 dark:hover:bg-white/20"
                   >
                     {icon &&
                       createElement(icon, {

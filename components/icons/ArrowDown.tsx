@@ -18,11 +18,11 @@ export default function ArrowDown(props: SVGAttributes<SVGElement>) {
         y1="12"
         x2="5"
         y2="12"
-        className="scale-x-0 group-hover:scale-x-100 translate-x-3 group-hover:translate-x-0 transition-all duration-300 ease-in-out"
+        className="translate-x-3 scale-x-0 transition-all duration-300 ease-in-out group-hover:translate-x-0 group-hover:scale-x-100"
       />
       <polyline
         points="12 19 5 12 12 5"
-        className="translate-x-1 group-hover:translate-x-0 transition-all duration-300 ease-in-out"
+        className="translate-x-1 transition-all duration-300 ease-in-out group-hover:translate-x-0"
       />
     </svg>
   );

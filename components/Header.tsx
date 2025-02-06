@@ -96,7 +96,7 @@ export default function Header({ site, logo }: HeaderProps) {
     <header
       ref={headerRef}
       id="header"
-      className={classnames(styles.header, "fixed top-0 w-full h-16 z-50", {
+      className={classnames(styles.header, "fixed top-0 z-50 h-16 w-full", {
         [styles["not-scrolled"]]: !scrolled,
         [styles["scrolled"]]: scrolled && !dark,
         [styles["scrolled-dark"]]: scrolled && dark,
@@ -104,10 +104,10 @@ export default function Header({ site, logo }: HeaderProps) {
     >
       <Container size="md">
         <div className="relative h-full w-full">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 flex gap-1 font-semibold">
+          <div className="absolute left-0 top-1/2 flex -translate-y-1/2 gap-1 font-semibold">
             <Link
               href="/"
-              className="flex gap-1 text-current hover:text-black dark:hover:text-white transition-colors duration-300 ease-in-out"
+              className="flex gap-1 text-current transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-white"
             >
               {logo.light && (
                 <Image
@@ -132,17 +132,17 @@ export default function Header({ site, logo }: HeaderProps) {
           </div>
 
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <nav className="hidden md:flex items-center justify-center text-sm gap-1">
+            <nav className="hidden items-center justify-center gap-1 text-sm md:flex">
               {nav.map(({ name, href }, i) => (
                 <Link
                   key={`link-${i}`}
                   href={href}
                   className={twMerge(
                     classnames(
-                      "h-8 rounded-full px-3 text-current flex items-center justify-center transition-colors duration-300 ease-in-out",
+                      "flex h-8 items-center justify-center rounded-full px-3 text-current transition-colors duration-300 ease-in-out",
                       {
-                        "bg-black dark:bg-white text-white dark:text-black": isMatched(href),
-                        "hover:bg-black/5 dark:hover:bg-white/20 hover:text-black dark:hover:text-white":
+                        "bg-black text-white dark:bg-white dark:text-black": isMatched(href),
+                        "hover:bg-black/5 hover:text-black dark:hover:bg-white/20 dark:hover:text-white":
                           !isMatched(href),
                       }
                     )
@@ -154,15 +154,15 @@ export default function Header({ site, logo }: HeaderProps) {
             </nav>
           </div>
 
-          <div className="buttons absolute right-0 top-1/2 -translate-y-1/2 flex gap-1">
+          <div className="buttons absolute right-0 top-1/2 flex -translate-y-1/2 gap-1">
             <Link
               href="/search"
               aria-label="Search blog posts and projects on this site"
               className={twMerge(
                 classnames(
-                  "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out",
+                  "hidden size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white md:flex",
                   {
-                    "pointer-events-none bg-black dark:bg-white text-white dark:text-black":
+                    "pointer-events-none bg-black text-white dark:bg-white dark:text-black":
                       pathname === "/search" || "/" + subpath?.[0] === "/search",
                   }
                 )
@@ -177,7 +177,7 @@ export default function Header({ site, logo }: HeaderProps) {
               aria-label={`Rss feed for ${site.name}`}
               className={twMerge(
                 classnames(
-                  "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+                  "hidden size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white md:flex"
                 )
               )}
             >
@@ -189,20 +189,20 @@ export default function Header({ site, logo }: HeaderProps) {
               aria-label="Toggle light and dark theme"
               className={twMerge(
                 classnames(
-                  "hidden md:flex size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+                  "hidden size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white md:flex"
                 )
               )}
               onClick={() => toggleTheme()}
             >
-              <LightMode className="size-full block dark:hidden" />
-              <DarkMode className="size-full hidden dark:block" />
+              <LightMode className="block size-full dark:hidden" />
+              <DarkMode className="hidden size-full dark:block" />
             </button>
 
             <button
               aria-label="Toggle drawer open and closed"
               className={twMerge(
                 classnames(
-                  "flex md:hidden size-9 rounded-full p-2 items-center justify-center bg-transparent hover:bg-black/5 dark:hover:bg-white/20 stroke-current hover:stroke-black hover:dark:stroke-white border border-black/10 dark:border-white/25 transition-colors duration-300 ease-in-out"
+                  "flex size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white md:hidden"
                 )
               )}
               onClick={() => toggleDrawer()}

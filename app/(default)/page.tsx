@@ -36,7 +36,7 @@ export default async function HomePage() {
       </section>
 
       <div className="relative bg-white dark:bg-black">
-        <div className="mx-auto max-w-screen-sm p-5 space-y-24 pb-16">
+        <div className="mx-auto max-w-screen-sm space-y-24 p-5 pb-16">
           <WelcomeTypography text={welcome.introduce} />
 
           <RecentPosts posts={posts} type="blog" />

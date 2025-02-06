@@ -6,10 +6,10 @@ export default function Counter() {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="flex gap-4 items-center">
+    <div className="flex items-center gap-4">
       <button
         onClick={() => setCount((prev) => prev + 1)}
-        className="px-3 py-1 border border-black/25 dark:border-white/25 hover:bg-black/5 dark:hover:bg-white/15 blend"
+        className="blend border border-black/25 px-3 py-1 hover:bg-black/5 dark:border-white/25 dark:hover:bg-white/15"
       >
         Increment
       </button>

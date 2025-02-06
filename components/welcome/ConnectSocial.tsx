@@ -20,19 +20,19 @@ export default function ConnectSocial({ social }: ConnectSocialProps) {
     >
       <p className="font-semibold text-black dark:text-white">Let's Connect</p>
       <p>Reach out to me via email or on social media.</p>
-      <div className="grid grid-cols-4 gap-y-2 mt-4 auto-cols-min">
+      <div className="mt-4 grid auto-cols-min grid-cols-4 gap-y-2">
         {social.map(({ name, href, text }, i) => (
           <Fragment key={`social-${i}`}>
             <div className="col-span-1 flex items-center gap-1">
-              <span className="whitespace-nowrap truncate">{name}</span>
+              <span className="truncate whitespace-nowrap">{name}</span>
             </div>
             <div className="col-span-3 truncate">
               <Link
                 href={href}
                 target="_blank"
-                className="w-fit col-span-3 group flex gap-1 items-center underline decoration-[.5px] decoration-black/25 dark:decoration-white/50 hover:decoration-black dark:hover:decoration-white text-black dark:text-white underline-offset-2 blend"
+                className="blend group col-span-3 flex w-fit items-center gap-1 text-black underline decoration-black/25 decoration-[.5px] underline-offset-2 hover:decoration-black dark:text-white dark:decoration-white/50 dark:hover:decoration-white"
               >
-                <span className="text-black/75 dark:text-white/75 group-hover:text-black group-hover:dark:text-white blend">
+                <span className="blend text-black/75 group-hover:text-black dark:text-white/75 group-hover:dark:text-white">
                   {text}
                 </span>
               </Link>

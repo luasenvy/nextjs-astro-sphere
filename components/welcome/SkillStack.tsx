@@ -21,7 +21,7 @@ export default function SkillStack({ stack }: SkillStackProps) {
           initial="hidden"
           whileInView="block"
           viewport={{ once: true, amount: "all" }}
-          className="flex flex-wrap items-center gap-2 mt-5"
+          className="mt-5 flex flex-wrap items-center gap-2"
         >
           {stack.map(({ text, href }, i) => (
             <motion.span

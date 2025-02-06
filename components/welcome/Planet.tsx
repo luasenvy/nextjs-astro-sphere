@@ -14,15 +14,15 @@ export default function Planet() {
     >
       <div
         id="crescent"
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-[250vw] min-h-[100vh] aspect-square rounded-full p-[1px] bg-gradient-to-b from-black/25 dark:from-white/75 from-0% to-transparent to-5%"
+        className="absolute left-1/2 top-0 aspect-square min-h-[100vh] w-[250vw] -translate-x-1/2 rounded-full bg-gradient-to-b from-black/25 from-0% to-transparent to-5% p-[1px] dark:from-white/75"
       >
         <div
           id="planet"
-          className="w-full h-full bg-white dark:bg-black rounded-full p-[1px] overflow-hidden flex justify-center"
+          className="flex h-full w-full justify-center overflow-hidden rounded-full bg-white p-[1px] dark:bg-black"
         >
           <div
             id="blur"
-            className="w-full h-20 rounded-full bg-neutral-900/25 dark:bg-white/25 blur-3xl"
+            className="h-20 w-full rounded-full bg-neutral-900/25 blur-3xl dark:bg-white/25"
           />
         </div>
       </div>

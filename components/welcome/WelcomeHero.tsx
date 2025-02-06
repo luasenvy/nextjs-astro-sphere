@@ -22,29 +22,29 @@ export default function WelcomeHero({
 }: WelcomeHeroProps) {
   return (
     <motion.div
-      className="absolute h-full w-full flex items-center justify-center"
+      className="absolute flex h-full w-full items-center justify-center"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.56, ease: "easeInOut", delay: 0.15 }}
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative flex h-full w-full items-center justify-center">
         <div className="p-5 text-center">
-          <p className="text-lg md:text-xl lg:text-2xl font-semibold opacity-75">{caption}</p>
-          <p className="text-2xl md:text-3xl lg:text-4xl font-bold uppercase text-black dark:text-white">
+          <p className="text-lg font-semibold opacity-75 md:text-xl lg:text-2xl">{caption}</p>
+          <p className="text-2xl font-bold uppercase text-black dark:text-white md:text-3xl lg:text-4xl">
             {title}
           </p>
-          <p className="text-sm md:text-base lg:text-lg opacity-75">{subtitle}</p>
-          <div id="ctaButtons" className="flex flex-wrap gap-4 justify-center mt-5">
+          <p className="text-sm opacity-75 md:text-base lg:text-lg">{subtitle}</p>
+          <div id="ctaButtons" className="mt-5 flex flex-wrap justify-center gap-4">
             <Link
               href="/blog"
-              className="py-2 px-4 rounded truncate text-xs md:text-sm lg:text-base bg-black dark:bg-white text-white dark:text-black hover:opacity-75 blend"
+              className="blend truncate rounded bg-black px-4 py-2 text-xs text-white hover:opacity-75 dark:bg-white dark:text-black md:text-sm lg:text-base"
             >
               {primaryLinkText}
             </Link>
             <Link
               href="/careers"
-              className="py-2 px-4 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
+              className="blend truncate rounded border border-black/25 px-4 py-2 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
             >
               {secondaryLinkText}
             </Link>

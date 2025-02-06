@@ -29,14 +29,14 @@ export default function Search({ posts, projects, legals }: SearchProps) {
           autoComplete="off"
           spellCheck={false}
           placeholder="What are you looking for?"
-          className="w-full px-2.5 py-1.5 pl-10 rounded outline-none text-black dark:text-white bg-black/5 dark:bg-white/15 border border-black/10 dark:border-white/20 focus:border-black focus:dark:border-white"
+          className="w-full rounded border border-black/10 bg-black/5 px-2.5 py-1.5 pl-10 text-black outline-none focus:border-black dark:border-white/20 dark:bg-white/15 dark:text-white focus:dark:border-white"
         />
-        <SearchIcon className="absolute size-6 left-1.5 top-1/2 -translate-y-1/2 stroke-current" />
+        <SearchIcon className="absolute left-1.5 top-1/2 size-6 -translate-y-1/2 stroke-current" />
       </div>
 
       {query.length > 1 && (
         <div className="mt-12">
-          <div className="text-sm uppercase mb-2">Results for {`"${query}"`}</div>
+          <div className="mb-2 text-sm uppercase">Results for {`"${query}"`}</div>
           <motion.ul
             variants={{
               hidden: { opacity: 0, y: 20 },

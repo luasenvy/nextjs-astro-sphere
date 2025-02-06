@@ -84,10 +84,10 @@ export default function PostList({
   }, [from, total]);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
       <div className="col-span-3 sm:col-span-1">
-        <div className="sticky top-24 sm:max-h-[60vh] lg:max-h-[70vh] xl:max-h-[80vh] sm:overflow-y-auto px-2">
-          <div className="text-sm font-semibold uppercase mb-2 text-black dark:text-white">
+        <div className="sticky top-24 px-2 sm:max-h-[60vh] sm:overflow-y-auto lg:max-h-[70vh] xl:max-h-[80vh]">
+          <div className="mb-2 text-sm font-semibold uppercase text-black dark:text-white">
             Filter
           </div>
           <motion.ul
@@ -97,7 +97,7 @@ export default function PostList({
             }}
             initial="hidden"
             animate="block"
-            className="flex flex-wrap sm:flex-col gap-1.5"
+            className="flex flex-wrap gap-1.5 sm:flex-col"
           >
             {series.map((name, i) => (
               <motion.li
@@ -113,7 +113,7 @@ export default function PostList({
                   title={name}
                   className={twMerge(
                     classnames(
-                      "w-full px-2 py-1 rounded flex items-center gap-2 bg-black/5 dark:bg-white/10 hover:bg-black/10 hover:dark:bg-white/15 transition-colors duration-300 ease-in-out",
+                      "flex w-full items-center gap-2 rounded bg-black/5 px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-black/10 dark:bg-white/10 hover:dark:bg-white/15",
                       { "text-black dark:text-white": selecteds.has(name) }
                     )
                   )}
@@ -121,10 +121,10 @@ export default function PostList({
                   <Square
                     className={twMerge(
                       classnames(
-                        "size-5 stroke-black dark:stroke-none fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
+                        "size-5 fill-black/50 stroke-black transition-colors duration-300 ease-in-out dark:fill-white/50 dark:stroke-none",
                         {
                           hidden: selecteds.has(name),
-                          "fill-white block": !selecteds.has(name),
+                          "block fill-white": !selecteds.has(name),
                         }
                       )
                     )}
@@ -132,10 +132,10 @@ export default function PostList({
                   <CheckBox
                     className={twMerge(
                       classnames(
-                        "size-5 fill-black/50 dark:fill-white/50 transition-colors duration-300 ease-in-out",
+                        "size-5 fill-black/50 transition-colors duration-300 ease-in-out dark:fill-white/50",
                         {
                           hidden: !selecteds.has(name),
-                          "fill-black dark:fill-white block": selecteds.has(name),
+                          "block fill-black dark:fill-white": selecteds.has(name),
                         }
                       )
                     )}
@@ -149,7 +149,7 @@ export default function PostList({
       </div>
       <div className="col-span-3 sm:col-span-2">
         <div className="flex flex-col">
-          <div className="text-sm uppercase mb-2">
+          <div className="mb-2 text-sm uppercase">
             SHOWING {from + 1} TO {to} OF {total} POSTS
           </div>
           <motion.ul

@@ -43,7 +43,7 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
         <Link
           href={`/${type}?${returnToSearchParams}`}
           className={classnames(
-            "group w-fit p-1.5 gap-1.5 text-sm flex items-center border rounded hover:bg-black/5 hover:dark:bg-white/10 border-black/15 dark:border-white/20 transition-colors duration-300 ease-in-out",
+            "group flex w-fit items-center gap-1.5 rounded border border-black/15 p-1.5 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10",
             {
               hidden: type === "legals",
             }
@@ -51,12 +51,12 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
           onClick={() => withTransitionTo(router, `/${type}?${returnToSearchParams}`)}
         >
           <ArrowDown className="stroke-current group-hover:stroke-black group-hover:dark:stroke-white" />
-          <div className="w-full group-hover:text-black group-hover:dark:text-white transition-colors duration-300 ease-in-out">
+          <div className="w-full transition-colors duration-300 ease-in-out group-hover:text-black group-hover:dark:text-white">
             Back to {type}
           </div>
         </Link>
 
-        <div className="flex flex-col sm:flex-row flex-wrap text-sm uppercase gap-3 opacity-75 my-6">
+        <div className="my-6 flex flex-col flex-wrap gap-3 text-sm uppercase opacity-75 sm:flex-row">
           <div className="flex items-center gap-2">
             <CalendarToday className="size-4" />
 
@@ -81,7 +81,7 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
           )}
         </div>
 
-        <h1 className="text-3xl font-semibold text-black dark:text-white my-6">{curr.title}</h1>
+        <h1 className="my-6 text-3xl font-semibold text-black dark:text-white">{curr.title}</h1>
 
         {/* <div className="mt-1">{curr.description}</div> */}
         {(curr.demo || curr.repo) && (
@@ -90,10 +90,10 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
               <Link
                 href={curr.demo}
                 target="_blank"
-                className="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
+                className="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
               >
                 <Public className="size-4" />
-                <span className="text-current group-hover:text-black group-hover:dark:text-white blend">
+                <span className="blend text-current group-hover:text-black group-hover:dark:text-white">
                   See Demo
                 </span>
               </Link>
@@ -102,10 +102,10 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
               <Link
                 href={curr.repo}
                 target="_blank"
-                className="group flex gap-2 items-center px-3 py-1.5 truncate rounded text-xs md:text-sm lg:text-base border border-black/25 dark:border-white/25 hover:bg-black/5 hover:dark:bg-white/15 blend"
+                className="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
               >
                 <LinkIcon className="size-4" />
-                <span className="text-current group-hover:text-black group-hover:dark:text-white blend">
+                <span className="blend text-current group-hover:text-black group-hover:dark:text-white">
                   See Repository
                 </span>
               </Link>
