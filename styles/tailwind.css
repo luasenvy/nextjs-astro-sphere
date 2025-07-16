@@ -12,6 +12,18 @@
   --animate-animateParticle-100: animateParticle 100s linear infinite;
   --animate-animateParticle-150: animateParticle 150s linear infinite;
 
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes fade-out {
+    to {
+      opacity: 0;
+    }
+  }
+
   @keyframes twinkle {
     0% {
       opacity: 0;
