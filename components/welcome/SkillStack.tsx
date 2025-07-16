@@ -23,7 +23,7 @@ export default function SkillStack({ stack }: SkillStackProps) {
           viewport={{ once: true, amount: "all" }}
           className="mt-5 flex flex-wrap items-center gap-2"
         >
-          {stack.map(({ text, href }, i) => (
+          {stack?.map(({ text, href }, i) => (
             <motion.span
               key={`stack-card-${i}`}
               variants={{

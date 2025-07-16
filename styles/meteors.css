@@ -15,13 +15,13 @@
 }
 
 .meteors .shower.dr {
-  @apply rotate-135;
+  @apply rotate-[135deg];
 }
 
 .meteors .shower.dl {
-  @apply rotate-225;
+  @apply rotate-[225deg];
 }
 
 .meteors .shower.ul {
-  @apply rotate-315;
+  @apply rotate-[315deg];
 }

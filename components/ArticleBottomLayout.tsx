@@ -5,11 +5,9 @@ import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 
 import { useMemo } from "react";
-
-import ArrowDown from "./icons/ArrowDown";
-
 import Link from "@/components/ViewTransitionLink";
 import type { PostItem, PostType } from "@/lib/db";
+import ArrowDown from "./icons/ArrowDown";
 
 export interface ArticleBottomLayoutProps {
   type: PostType;
@@ -32,7 +30,7 @@ export default function ArticleBottomLayout({
         filter: (searchParams.get("filter") as string) ?? undefined,
         page: (searchParams.get("page") as string) ?? undefined,
       }),
-    [searchParams]
+    [searchParams],
   );
 
   return (

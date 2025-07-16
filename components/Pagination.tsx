@@ -1,7 +1,7 @@
 "use client";
 
-import classnames from "classnames";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export interface PaginationProps {
   total: number;
@@ -30,12 +30,12 @@ export default function Pagination({ total, page, size, onChange: handleChange }
             hidden: { opacity: 0, y: 20 },
             block: { opacity: 1, y: 0, transition: { duration: 0.56 } },
           }}
-          className={classnames(
+          className={cn(
             "flex size-7 items-center justify-center rounded-full border border-black/10 bg-transparent text-center font-mono text-xs transition-colors duration-300 ease-in-out",
             {
               "bg-black/5 dark:bg-white/20": i + 1 === page,
               "hover:bg-black/5 dark:border-white/25 dark:hover:bg-white/20": i + 1 !== page,
-            }
+            },
           )}
           onClick={() => handleChange(i + 1)}
         >

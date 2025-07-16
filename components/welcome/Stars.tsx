@@ -58,7 +58,7 @@ export default function Stars() {
         `;
       }
     },
-    [stars1Ref, stars2Ref, stars3Ref]
+    [stars1Ref, stars2Ref, stars3Ref],
   );
 
   useLayoutEffect(() => {

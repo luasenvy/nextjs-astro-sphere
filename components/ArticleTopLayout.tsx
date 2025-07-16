@@ -6,18 +6,13 @@ import CalendarToday from "@mui/icons-material/CalendarToday";
 import LinkIcon from "@mui/icons-material/Link";
 import MenuBook from "@mui/icons-material/MenuBook";
 import Public from "@mui/icons-material/Public";
-import classnames from "classnames";
-
 import { useRouter, useSearchParams } from "next/navigation";
-
 import { useMemo } from "react";
-
 import type { ReadTimeResults } from "reading-time";
-
-import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
 import ArrowDown from "@/components/icons/ArrowDown";
-
+import Link, { withTransitionTo } from "@/components/ViewTransitionLink";
 import type { PostItem, PostType } from "@/lib/db";
+import { cn } from "@/lib/utils";
 
 export interface ArticleTopLayoutProps {
   curr: PostItem;
@@ -42,11 +37,9 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
       <div>
         <Link
           href={`/${type}?${returnToSearchParams}`}
-          className={classnames(
+          className={cn(
             "group flex w-fit items-center gap-1.5 rounded border border-black/15 p-1.5 text-sm transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10",
-            {
-              hidden: type === "legals",
-            }
+            { hidden: type === "legals" },
           )}
           onClick={() => withTransitionTo(router, `/${type}?${returnToSearchParams}`)}
         >
@@ -81,7 +74,7 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
           )}
         </div>
 
-        <h1 className="my-6 text-3xl font-semibold text-black dark:text-white">{curr.title}</h1>
+        <h1 className="my-6 font-semibold text-3xl text-black dark:text-white">{curr.title}</h1>
 
         {/* <div className="mt-1">{curr.description}</div> */}
         {(curr.demo || curr.repo) && (
@@ -90,7 +83,7 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
               <Link
                 href={curr.demo}
                 target="_blank"
-                className="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
+                className="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 md:text-sm lg:text-base dark:border-white/25 hover:dark:bg-white/15"
               >
                 <Public className="size-4" />
                 <span className="blend text-current group-hover:text-black group-hover:dark:text-white">
@@ -102,7 +95,7 @@ export default function ArticleTopLayout({ curr, type, readingTime }: ArticleTop
               <Link
                 href={curr.repo}
                 target="_blank"
-                className="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
+                className="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 md:text-sm lg:text-base dark:border-white/25 hover:dark:bg-white/15"
               >
                 <LinkIcon className="size-4" />
                 <span className="blend text-current group-hover:text-black group-hover:dark:text-white">

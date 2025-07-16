@@ -1,6 +1,5 @@
-import ArrowDown from "./icons/ArrowDown";
-
 import type { PostItem, PostType } from "@/lib/db";
+import ArrowDown from "./icons/ArrowDown";
 
 type ArrowCardProps = {
   post: PostItem;

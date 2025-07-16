@@ -1,4 +1,4 @@
-import "@/styles/global.css";
+import "@/styles/tailwind.css";
 
 import { site } from "@/config";
 

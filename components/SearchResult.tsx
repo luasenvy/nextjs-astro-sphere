@@ -6,11 +6,9 @@ import Fuse from "fuse.js";
 
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
-
-import { withTransitionTo } from "./ViewTransitionLink";
-
 import ArrowCard from "@/components/ArrowCard";
 import type { PostItem, PostType } from "@/lib/db";
+import { withTransitionTo } from "./ViewTransitionLink";
 
 export interface SearchResultProps {
   label: PostType;
@@ -29,7 +27,7 @@ export default function SearchResult({ label, posts, query }: SearchResultProps)
 
   const results = useMemo(
     () => (query.length < 2 ? [] : fuse.search(query).map((result) => result.item)),
-    [query]
+    [query],
   );
 
   return results.map((result, i) => (

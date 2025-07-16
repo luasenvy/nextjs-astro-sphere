@@ -41,26 +41,26 @@ export default function Particles() {
       }
 
       if (particles2) {
+        particles2.classList.add("animate-animateParticle-100");
         particles2.style.cssText = `
           width: 1.5px;
           height: 1.5px;
           border-radius: 50%;
           box-shadow: ${particlesMedium};
-          animation: animateParticle 100s linear infinite;
         `;
       }
 
       if (particles3) {
+        particles3.classList.add("animate-animateParticle-150");
         particles3.style.cssText = `
           width: 2px;
           height: 2px;
           border-radius: 50%;
           box-shadow: ${particlesLarge};
-          animation: animateParticle 150s linear infinite;
         `;
       }
     },
-    [particles1Ref, particles2Ref, particles3Ref]
+    [particles1Ref, particles2Ref, particles3Ref],
   );
 
   useLayoutEffect(() => {

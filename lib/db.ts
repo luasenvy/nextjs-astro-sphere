@@ -1,10 +1,8 @@
-import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from "fs";
-import { join } from "path";
-
 import { Feed } from "feed";
-
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "fs";
 import { JSONFilePreset } from "lowdb/node";
 import type { MetadataRoute } from "next";
+import { join } from "path";
 import type { ReadTimeResults } from "reading-time";
 import rt from "reading-time";
 
@@ -105,7 +103,7 @@ function entryTo(
   strname: string,
   created: number,
   updated: number,
-  type: PostType
+  type: PostType,
 ): void {
   const slug = strname.substring(0, strname.lastIndexOf("."));
 
@@ -145,11 +143,11 @@ function getItem(series: string, pathname: string, slug: string, created: number
 
 export function getMetadata(
   slug: string,
-  dbname?: keyof DatabaseSchema
+  dbname?: keyof DatabaseSchema,
 ): Promise<PostItem | undefined> {
   const decoded = decodeURIComponent(slug);
   return db.then(({ data: { [dbname ?? "blog"]: posts } }) =>
-    posts.find(({ slug: s }) => decoded === s)
+    posts.find(({ slug: s }) => decoded === s),
   );
 }
 
@@ -173,7 +171,7 @@ export function getPostArticle({
   const decoded = decodeURIComponent(slug);
   return db.then(({ data: { [dbname ?? "blog"]: contents } }) => {
     const posts = contents.filter(({ series }) =>
-      filter?.length ? filter.includes(series ?? "") : true
+      filter?.length ? filter.includes(series ?? "") : true,
     );
 
     const curr = posts.findIndex(({ slug: s }) => decoded === s);
@@ -194,7 +192,7 @@ export function getContent(pathname: string, dbname: string = "") {
 
 export function getSeries(posts: Array<PostItem>) {
   return Array.from(
-    posts.reduce((acc, { series }) => (series ? acc.add(series) : acc), new Set<string>())
+    posts.reduce((acc, { series }) => (series ? acc.add(series) : acc), new Set<string>()),
   );
 }
 
@@ -206,7 +204,7 @@ export function getSitemaps(
   posts: Array<PostItem>,
   id: number,
   limit: number,
-  type: PostType
+  type: PostType,
 ): MetadataRoute.Sitemap {
   const from = id * limit;
 

@@ -1,11 +1,8 @@
 import { Fragment } from "react";
-
-import CareerItem from "./CareerItem";
-
 import Container from "@/components/Container";
 import type { PostArticle } from "@/lib/db";
-
 import { MDXLoader } from "@/lib/mdx-parser";
+import CareerItem from "./CareerItem";
 
 export interface CareerLayoutProps {
   careers: Array<PostArticle>;
@@ -25,7 +22,7 @@ export default function CareerLayout({ careers }: CareerLayoutProps) {
                     <MDXLoader source={body} />
                   </article>
                 </Fragment>
-              )
+              ),
           )}
         </ul>
       </Container>

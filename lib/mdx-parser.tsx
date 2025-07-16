@@ -10,11 +10,10 @@ import remarkHeadingId from "remark-heading-id";
 import remarkMdxFrontmatter from "remark-mdx-frontmatter";
 
 import type { VFile } from "vfile";
-
-import Link, { type ViewTransitionLinkProps } from "@/components/ViewTransitionLink";
 import Counter from "@/components/in-mdx/Counter";
 import MyComponent from "@/components/in-mdx/MyComponent";
 import Youtube from "@/components/in-mdx/Youtube";
+import Link, { type ViewTransitionLinkProps } from "@/components/ViewTransitionLink";
 
 const separator = "\n---\n";
 

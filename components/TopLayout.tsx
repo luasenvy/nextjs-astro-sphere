@@ -6,7 +6,7 @@ import Container from "@/components/Container";
 
 export default function TopLayout({ className, children }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className="pb-6 pt-36">
+    <div className="pt-36 pb-6">
       <Container size="md">
         <motion.div
           className={className}

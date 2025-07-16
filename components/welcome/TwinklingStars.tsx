@@ -25,7 +25,7 @@ export default function TwinklingStars() {
       twinkleStar.style.setProperty("left", `${Math.floor(Math.random() * window.innerWidth)}px`);
       twinkleStar.style.setProperty(
         "top",
-        `${Math.floor(Math.random() * (window.innerHeight / 3))}px`
+        `${Math.floor(Math.random() * (window.innerHeight / 3))}px`,
       );
 
       twinkleStar.style.setProperty("width", `${width}px`);

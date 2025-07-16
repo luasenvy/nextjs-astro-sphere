@@ -32,7 +32,7 @@ export async function withTransitionTo(router: AppRouterInstance, href: string =
 
 export default forwardRef(function ViewTransitionLink(
   { onClick: handleClick, ...props }: ViewTransitionLinkProps,
-  ref: React.Ref<HTMLAnchorElement>
+  ref: React.Ref<HTMLAnchorElement>,
 ) {
   const router = useRouter();
   const handleTransition = (e: React.MouseEvent<HTMLAnchorElement>) => {

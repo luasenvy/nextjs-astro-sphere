@@ -30,21 +30,21 @@ export default function WelcomeHero({
     >
       <div className="relative flex h-full w-full items-center justify-center">
         <div className="p-5 text-center">
-          <p className="text-lg font-semibold opacity-75 md:text-xl lg:text-2xl">{caption}</p>
-          <p className="text-2xl font-bold uppercase text-black dark:text-white md:text-3xl lg:text-4xl">
+          <p className="font-semibold text-lg opacity-75 md:text-xl lg:text-2xl">{caption}</p>
+          <p className="font-bold text-2xl text-black uppercase md:text-3xl lg:text-4xl dark:text-white">
             {title}
           </p>
           <p className="text-sm opacity-75 md:text-base lg:text-lg">{subtitle}</p>
           <div id="ctaButtons" className="mt-5 flex flex-wrap justify-center gap-4">
             <Link
               href="/blog"
-              className="blend truncate rounded bg-black px-4 py-2 text-xs text-white hover:opacity-75 dark:bg-white dark:text-black md:text-sm lg:text-base"
+              className="blend truncate rounded bg-black px-4 py-2 text-white text-xs hover:opacity-75 md:text-sm lg:text-base dark:bg-white dark:text-black"
             >
               {primaryLinkText}
             </Link>
             <Link
               href="/careers"
-              className="blend truncate rounded border border-black/25 px-4 py-2 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
+              className="blend truncate rounded border border-black/25 px-4 py-2 text-xs hover:bg-black/5 md:text-sm lg:text-base dark:border-white/25 hover:dark:bg-white/15"
             >
               {secondaryLinkText}
             </Link>

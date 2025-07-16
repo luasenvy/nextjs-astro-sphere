@@ -10,7 +10,7 @@ export async function GET(
     params: Promise<{
       type: "rss" | "rss2" | "atom" | "json";
     }>;
-  }
+  },
 ) {
   const { type } = await params;
 

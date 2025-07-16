@@ -4,10 +4,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import { motion } from "framer-motion";
 
 import { useState } from "react";
-
-import SearchResult from "./SearchResult";
-
 import type { PostItem } from "@/lib/db";
+import SearchResult from "./SearchResult";
 
 export interface SearchProps {
   posts: Array<PostItem>;
@@ -31,7 +29,7 @@ export default function Search({ posts, projects, legals }: SearchProps) {
           placeholder="What are you looking for?"
           className="w-full rounded border border-black/10 bg-black/5 px-2.5 py-1.5 pl-10 text-black outline-none focus:border-black dark:border-white/20 dark:bg-white/15 dark:text-white focus:dark:border-white"
         />
-        <SearchIcon className="absolute left-1.5 top-1/2 size-6 -translate-y-1/2 stroke-current" />
+        <SearchIcon className="-translate-y-1/2 absolute top-1/2 left-1.5 size-6 stroke-current" />
       </div>
 
       {query.length > 1 && (

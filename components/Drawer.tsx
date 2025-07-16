@@ -4,18 +4,13 @@ import DarkMode from "@mui/icons-material/DarkMode";
 import LightMode from "@mui/icons-material/LightMode";
 import RssFeed from "@mui/icons-material/RssFeed";
 import Search from "@mui/icons-material/Search";
-
-import classnames from "classnames";
-
 import { usePathname } from "next/navigation";
 import { useLayoutEffect, useState } from "react";
-import { twMerge } from "tailwind-merge";
-
-import { nav } from "./Header";
-
 import Link from "@/components/ViewTransitionLink";
 import { getDrawer, toggleDrawer } from "@/lib/drawer";
 import { toggleTheme } from "@/lib/theme";
+import { cn } from "@/lib/utils";
+import { nav } from "./Header";
 
 export default function Drawer() {
   const pathname = usePathname();
@@ -39,11 +34,9 @@ export default function Drawer() {
 
   return (
     <div
-      className={classnames(
-        "fixed inset-0 z-40 flex h-0 flex-col items-center justify-center overflow-hidden bg-neutral-100 transition-[height] duration-300 ease-in-out dark:bg-neutral-900 md:hidden",
-        {
-          "h-full": showDrawer,
-        }
+      className={cn(
+        "fixed inset-0 z-40 flex h-0 flex-col items-center justify-center overflow-hidden bg-neutral-100 transition-[height] duration-300 ease-in-out md:hidden dark:bg-neutral-900",
+        { "h-full": showDrawer },
       )}
     >
       <nav className="flex flex-col items-center space-y-2">
@@ -51,14 +44,12 @@ export default function Drawer() {
           <Link
             key={`link-${i}`}
             href={href}
-            className={twMerge(
-              classnames(
-                "flex items-center justify-center rounded-full px-3 py-1 text-current transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black dark:hover:bg-white/20 dark:hover:text-white",
-                {
-                  "pointer-events-none bg-black text-white dark:bg-white dark:text-black":
-                    pathname === href || "/" + subpath?.[0] === href,
-                }
-              )
+            className={cn(
+              "flex items-center justify-center rounded-full px-3 py-1 text-current transition-colors duration-300 ease-in-out hover:bg-black/5 hover:text-black dark:hover:bg-white/20 dark:hover:text-white",
+              {
+                "pointer-events-none bg-black text-white dark:bg-white dark:text-black":
+                  pathname === href || "/" + subpath?.[0] === href,
+              },
             )}
             onClick={() => toggleTheme()}
           >
@@ -71,14 +62,12 @@ export default function Drawer() {
         <Link
           href="/search"
           aria-label="Search blog posts and projects on this site"
-          className={twMerge(
-            classnames(
-              "size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white",
-              {
-                "pointer-events-none bg-black text-white dark:bg-white dark:text-black":
-                  pathname === "/search" || "/" + subpath?.[0] === "search",
-              }
-            )
+          className={cn(
+            "size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white",
+            {
+              "pointer-events-none bg-black text-white dark:bg-white dark:text-black":
+                pathname === "/search" || "/" + subpath?.[0] === "search",
+            },
           )}
           onClick={() => toggleDrawer()}
         >

@@ -14,7 +14,7 @@ export default function Planet() {
     >
       <div
         id="crescent"
-        className="absolute left-1/2 top-0 aspect-square min-h-[100vh] w-[250vw] -translate-x-1/2 rounded-full bg-gradient-to-b from-black/25 from-0% to-transparent to-5% p-[1px] dark:from-white/75"
+        className="-translate-x-1/2 absolute top-0 left-1/2 aspect-square min-h-[100vh] w-[250vw] rounded-full bg-gradient-to-b from-0% from-black/25 to-5% to-transparent p-[1px] dark:from-white/75"
       >
         <div
           id="planet"

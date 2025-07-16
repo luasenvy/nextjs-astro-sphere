@@ -2,19 +2,14 @@
 
 import CheckBox from "@mui/icons-material/CheckBox";
 import Square from "@mui/icons-material/Square";
-
-import classnames from "classnames";
 import { motion } from "framer-motion";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { twMerge } from "tailwind-merge";
-
-import Pagination from "./Pagination";
-
-import { withTransitionTo } from "./ViewTransitionLink";
-
 import ArrowCard from "@/components/ArrowCard";
 import type { PostItem, PostType } from "@/lib/db";
+import { cn } from "@/lib/utils";
+import Pagination from "./Pagination";
+import { withTransitionTo } from "./ViewTransitionLink";
 
 export interface PostListProps {
   posts: Array<PostItem>;
@@ -79,7 +74,7 @@ export default function PostList({
 
     withTransitionTo(
       router,
-      `/${type}?${new URLSearchParams({ page: "1", filter: Array.from(selecteds).join(",") })}`
+      `/${type}?${new URLSearchParams({ page: "1", filter: Array.from(selecteds).join(",") })}`,
     );
   }, [from, total]);
 
@@ -87,7 +82,7 @@ export default function PostList({
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
       <div className="col-span-3 sm:col-span-1">
         <div className="sticky top-24 px-2 sm:max-h-[60vh] sm:overflow-y-auto lg:max-h-[70vh] xl:max-h-[80vh]">
-          <div className="mb-2 text-sm font-semibold uppercase text-black dark:text-white">
+          <div className="mb-2 font-semibold text-black text-sm uppercase dark:text-white">
             Filter
           </div>
           <motion.ul
@@ -111,33 +106,27 @@ export default function PostList({
                 <button
                   onClick={() => handleClickSeriesToggle(name)}
                   title={name}
-                  className={twMerge(
-                    classnames(
-                      "flex w-full items-center gap-2 rounded bg-black/5 px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-black/10 dark:bg-white/10 hover:dark:bg-white/15",
-                      { "text-black dark:text-white": selecteds.has(name) }
-                    )
+                  className={cn(
+                    "flex w-full items-center gap-2 rounded bg-black/5 px-2 py-1 transition-colors duration-300 ease-in-out hover:bg-black/10 dark:bg-white/10 hover:dark:bg-white/15",
+                    { "text-black dark:text-white": selecteds.has(name) },
                   )}
                 >
                   <Square
-                    className={twMerge(
-                      classnames(
-                        "size-5 fill-black/50 stroke-black transition-colors duration-300 ease-in-out dark:fill-white/50 dark:stroke-none",
-                        {
-                          hidden: selecteds.has(name),
-                          "block fill-white": !selecteds.has(name),
-                        }
-                      )
+                    className={cn(
+                      "size-5 fill-black/50 stroke-black transition-colors duration-300 ease-in-out dark:fill-white/50 dark:stroke-none",
+                      {
+                        hidden: selecteds.has(name),
+                        "block fill-white": !selecteds.has(name),
+                      },
                     )}
                   />
                   <CheckBox
-                    className={twMerge(
-                      classnames(
-                        "size-5 fill-black/50 transition-colors duration-300 ease-in-out dark:fill-white/50",
-                        {
-                          hidden: !selecteds.has(name),
-                          "block fill-black dark:fill-white": selecteds.has(name),
-                        }
-                      )
+                    className={cn(
+                      "size-5 fill-black/50 transition-colors duration-300 ease-in-out dark:fill-white/50",
+                      {
+                        hidden: !selecteds.has(name),
+                        "block fill-black dark:fill-white": selecteds.has(name),
+                      },
                     )}
                   />
                   <span className="truncate">{name}</span>
@@ -175,7 +164,7 @@ export default function PostList({
                   onSelect={() =>
                     withTransitionTo(
                       router,
-                      `/${type}/${post.slug}?${new URLSearchParams({ page: String(page), filter: Array.from(selecteds).join(",") })}`
+                      `/${type}/${post.slug}?${new URLSearchParams({ page: String(page), filter: Array.from(selecteds).join(",") })}`,
                     )
                   }
                 />
@@ -191,7 +180,7 @@ export default function PostList({
             onChange={(page) =>
               withTransitionTo(
                 router,
-                `/${type}?${new URLSearchParams({ page: String(page), filter: Array.from(selecteds).join(",") })}`
+                `/${type}?${new URLSearchParams({ page: String(page), filter: Array.from(selecteds).join(",") })}`,
               )
             }
           />
